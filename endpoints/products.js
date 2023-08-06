@@ -43,7 +43,6 @@ export const fetchSingleProduct = async (id) => {
 };
 
 export const purchaseProduct = async (productId, affiliate, quantity) => {
-  console.log("kkkk");
   const token = localStorage.getItem("token");
   const [res, resErr] = await handlePromise(
     axios.get(

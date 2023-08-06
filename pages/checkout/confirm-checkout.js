@@ -14,7 +14,8 @@ import { toast } from "react-toastify";
 function ConfirmCheckout() {
   const router = useRouter();
   const { ref, qty, product } = router.query;
-  const { isUserAuthenticated, authState } = useContext(AuthContext);
+  const { isUserAuthenticated, authState, updateUser } =
+    useContext(AuthContext);
   const user = authState?.user;
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
@@ -28,14 +29,15 @@ function ConfirmCheckout() {
   );
 
   const purchase_product = async () => {
-    console.log(product, ref);
     const [purchased, purchasedErr] = await purchaseProduct(product, ref, qty);
     if (purchased) {
       toast.success(purchased.message);
+      updateUser();
       router.push({
         pathname: `/checkout/checkout-success?product=${product}&ref=${ref}`,
       });
     } else {
+      updateUser();
       toast.error(purchasedErr);
     }
   };

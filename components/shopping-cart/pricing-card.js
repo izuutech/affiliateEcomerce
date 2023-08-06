@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/auth-context";
 
 function PricingCard({
   product,
@@ -9,6 +11,7 @@ function PricingCard({
   children,
   affiliate,
 }) {
+  const { user } = useContext(AuthContext);
   return (
     <div className="card border-0 shadow-sm">
       <div className="card-body">
@@ -32,6 +35,12 @@ function PricingCard({
             <span className="h5">Total:</span>
             <span className="fw-bold h5 mb-0">
               &#8358;{product?.price?.toFixed(2)}
+            </span>
+          </div>
+          <div className="d-flex justify-content-between">
+            <span className="">Wallet Balance:</span>
+            <span className="fw-bold mb-0">
+              &#8358;{user?.balance?.toFixed(2)}
             </span>
           </div>
 

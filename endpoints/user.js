@@ -35,6 +35,24 @@ export const signin = async (body) => {
   }
 };
 
+export const fetchProfile = async (body) => {
+  const token = localStorage.getItem("token");
+  const [res, resErr] = await handlePromise(
+    axios.get(`${baseUrl}user`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  );
+  if (res) {
+    return [res.data, null];
+  } else {
+    clearCache(resErr?.response?.data?.error);
+    return [null, resErr?.response?.data?.error || resErr.message];
+  }
+};
+
 export const fundUser = async (body) => {
   const token = localStorage.getItem("token");
   const [res, resErr] = await handlePromise(

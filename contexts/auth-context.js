@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import { fetchProfile } from "../endpoints/user";
 
 const AuthContext = React.createContext();
 const { Provider } = AuthContext;
@@ -38,9 +39,18 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const updateUser = (userData) => {
-    setAuthState({ ...authState, user: userData });
+  const updateUser = async (userData) => {
+    if (userData) {
+      setAuthState({ ...authState, user: userData });
+    } else {
+      const [user, userErr] = await fetchProfile();
+      if (user) {
+        window.localStorage.setItem("loggedInUser", JSON.stringify(user.data));
+        setAuthState({ ...authState, user: user.data });
+      }
+    }
   };
+
   return (
     <Provider
       value={{
