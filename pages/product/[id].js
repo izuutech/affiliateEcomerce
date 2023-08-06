@@ -8,6 +8,7 @@ import { useQuery } from "react-query";
 import { fetchProducts, fetchSingleProduct } from "../../endpoints/products";
 import { frontendbaseUrl } from "../../utils/constants.utils";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 function ProductDetail() {
   const images = [2, 4, 6, 8, 1];
@@ -24,6 +25,10 @@ function ProductDetail() {
     return await fetchProducts({ page: 1, limit: 5 });
   });
   const product = data?.data?.data;
+
+  useEffect(() => {
+    localStorage.setItem("cartProduct", id);
+  }, []);
   return (
     <div className="vstack">
       <div className="bg-secondary">

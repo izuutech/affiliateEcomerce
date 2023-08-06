@@ -1,8 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 function Header({ simple, hideAuth }) {
   let title = process.env.APP_NAME;
+  const [cartNo, setCartNo] = useState(0);
+
+  useEffect(() => {
+    const id = localStorage.getItem("cartProduct");
+    if (id) {
+      setCartNo(1);
+    }
+  }, []);
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
@@ -70,7 +79,7 @@ function Header({ simple, hideAuth }) {
               <FontAwesomeIcon icon={["fas", "shopping-cart"]} />
               &nbsp;Cart
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-auto">
-                3
+                {cartNo}
               </span>
               {/* </a> */}
             </Link>

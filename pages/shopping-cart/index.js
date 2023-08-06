@@ -10,18 +10,27 @@ import { useQuery } from "react-query";
 function ShoppingCart() {
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
+  const [productId, setProductId] = useState(1);
   const { ref, product } = router.query;
 
   const { isUserAuthenticated, authState } = useContext(AuthContext);
 
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
+    if (!product) {
+      const theProductId = localStorage.getItem("cartProduct");
+      if (theProductId) {
+        setProductId(theProductId);
+      }
+    } else {
+      setProductId(product);
+    }
   }, []);
 
   const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
-    `fetch_product_${product}`,
+    `fetch_product_${productId}`,
     async () => {
-      return await fetchSingleProduct(product);
+      return await fetchSingleProduct(productId);
     }
   );
 
@@ -50,11 +59,15 @@ function ShoppingCart() {
                     </tr>
                   </thead> */}
                   <tbody>
-                    <CartItemRow
-                      product={data?.data?.data}
-                      quantity={quantity}
-                      setQuantity={setQuantity}
-                    />
+                    {data?.data?.data ? (
+                      <CartItemRow
+                        product={data?.data?.data}
+                        quantity={quantity}
+                        setQuantity={setQuantity}
+                      />
+                    ) : (
+                      <div className="h5 px-3">No Item in cart</div>
+                    )}
                     {/* <CartItemRow />
                     <CartItemRow /> */}
                   </tbody>
