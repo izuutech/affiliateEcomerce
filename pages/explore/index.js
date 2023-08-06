@@ -1,16 +1,40 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductGridCard from "../../components/product/product-grid-card";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/auth-context";
+import { fetchProducts } from "../../endpoints/products";
+import { useQuery } from "react-query";
 
 function ExploreProducts() {
   const router = useRouter();
   const { isUserAuthenticated, authState } = useContext(AuthContext);
 
+  const [products, setProducts] = useState([]);
+  const [pagination, setPagination] = useState({ page: 1, limit: 10 });
+
+  const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
+    `fetch_orders_${pagination.page}`,
+    async () => {
+      return await fetchProducts(pagination);
+    }
+  );
+
+  useEffect(() => {
+    if (data?.data?.data && Array.isArray(data?.data?.data?.docs)) {
+      setProducts([...data?.data?.data?.docs]);
+    }
+  }, [data?.data, data?.data?.data]);
+
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
   }, []);
+  console.log(data?.data?.data?.totalDocs);
+
+  const changePage = (newPage) => {
+    setPagination((prev) => ({ ...prev, page: newPage }));
+  };
+
   return (
     <div className="vstack">
       <div className="bg-secondary">
@@ -172,7 +196,9 @@ function ExploreProducts() {
           </div> */}
           <div className="col-lg-12">
             <div className="hstack justify-content-between mb-3">
-              <span className="text-dark">33 Items found</span>
+              <span className="text-dark">
+                {data?.data?.data?.totalDocs} Items found
+              </span>
               <div className="btn-group" role="group">
                 <button className="btn btn-outline-dark">
                   <FontAwesomeIcon icon={["fas", "sort-amount-up"]} />
@@ -183,10 +209,12 @@ function ExploreProducts() {
               </div>
             </div>
             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-              <div className="col">
-                <ProductGridCard />
-              </div>
-              <div className="col">
+              {products.map((product) => (
+                <div className="col">
+                  <ProductGridCard product={product} />
+                </div>
+              ))}
+              {/* <div className="col">
                 <ProductGridCard off={10} />
               </div>
               <div className="col">
@@ -203,35 +231,47 @@ function ExploreProducts() {
               </div>
               <div className="col">
                 <ProductGridCard />
-              </div>
+              </div> */}
             </div>
 
             <nav className="float-end mt-3">
               <ul className="pagination">
+                {/* {data?.data?.data?.hasPrevPage && ( */}
                 <li className="page-item">
-                  <a className="page-link" href="#">
+                  <button
+                    className={`page-link ${
+                      data?.data?.data?.hasPrevPage ? "" : "text-dark"
+                    }`}
+                    onClick={
+                      data?.data?.data?.hasPrevPage
+                        ? () => {
+                            const newPage = (pagination.page -= 1);
+                            changePage(newPage);
+                          }
+                        : null
+                    }
+                  >
                     Prev
-                  </a>
+                  </button>
                 </li>
+                {/* )} */}
+
                 <li className="page-item">
-                  <a className="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    2
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    3
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
+                  <button
+                    className={`page-link ${
+                      data?.data?.data?.hasNextPage ? "" : "text-dark"
+                    }`}
+                    onClick={
+                      data?.data?.data?.hasNextPage
+                        ? () => {
+                            const newPage = (pagination.page += 1);
+                            changePage(newPage);
+                          }
+                        : null
+                    }
+                  >
                     Next
-                  </a>
+                  </button>
                 </li>
               </ul>
             </nav>

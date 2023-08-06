@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-function ProductGridCard({ id, title, off }) {
+function ProductGridCard({ product, id, title, off }) {
   let price = 10000;
   let percentOff;
   let offPrice = `${price}Ks`;
@@ -42,11 +42,11 @@ function ProductGridCard({ id, title, off }) {
         <div className="vstack gap-2">
           <Link href="/product/1" className="text-dark text-decoration-none">
             {/* <a className="text-dark text-decoration-none"> */}
-            Product name here
+            {product.title}
             {/* </a> */}
           </Link>
 
-          <h6 className="fw-semibold">{offPrice}</h6>
+          <h6 className="fw-semibold"> &#8358;{product.price.toFixed(2)}</h6>
 
           <div className="hstack gap-2">
             <button className="btn btn-secondary text-primary flex-grow-1 d-md-block d-lg-none">

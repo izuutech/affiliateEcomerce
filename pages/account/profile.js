@@ -6,10 +6,6 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 import { useRouter } from "next/router";
 
-const cities = ["Yangon", "Mandalay", "Kalaw"];
-
-const states = ["Thar Kay Ta", "Daw Pon", "San Chaung"];
-
 function Profile() {
   const router = useRouter();
   const { isUserAuthenticated, authState } = useContext(AuthContext);

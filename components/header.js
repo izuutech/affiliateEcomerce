@@ -56,6 +56,13 @@ function Header({ simple, hideAuth }) {
               </>
             )}
             <Link
+              href="/account/profile"
+              className="btn btn-light border position-relative ms-2 fw-normal"
+            >
+              <FontAwesomeIcon icon={["fas", "user"]} />
+              &nbsp;Profile
+            </Link>
+            <Link
               href="/shopping-cart"
               className="btn btn-light border position-relative ms-2 fw-normal"
             >

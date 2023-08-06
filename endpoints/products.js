@@ -2,15 +2,19 @@ import axios from "axios";
 import { baseUrl } from "../utils/constants.utils";
 import handlePromise from "../utils/handlePromise.utils";
 import { clearCache } from "./shared";
-export const fetchOrders = async (type) => {
+
+export const fetchProducts = async (pagination) => {
   const token = localStorage.getItem("token");
   const [res, resErr] = await handlePromise(
-    axios.get(`${baseUrl}t/orders?type=${type}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    axios.get(
+      `${baseUrl}product?page=${pagination.page}&limit=${pagination.limit}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
   );
   if (res) {
     return { data: res.data, err: null };
