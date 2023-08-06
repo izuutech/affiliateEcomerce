@@ -11,26 +11,26 @@ function Footer() {
               <h5 className="text-light">Contact us</h5>
               <div className="vstack gap-1">
                 <p className="mb-2 text-light text-opacity-75 small">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer in feugiat lorem.
+                  This site was built by Joshua Amaechindukwe in partial
+                  fulfillment for his B.Tech degree in FUTO
                 </p>
                 <small className="d-flex text-light text-opacity-75 gap-2">
                   <FontAwesomeIcon
                     icon={["fas", "map-marker"]}
                     className="mt-1"
                   />
-                  <div>123 Mocha Street, Milk Township, Yangon.</div>
+                  <div>123 Eziobodo, FUTO, Nigeria.</div>
                 </small>
                 <small className="d-flex text-light text-opacity-75 gap-2">
                   <FontAwesomeIcon
                     icon={["fas", "envelope"]}
                     className="mt-1"
                   />
-                  <div>info@domain.com</div>
+                  <div>contact@joshuaizu.com</div>
                 </small>
                 <small className="d-flex text-light text-opacity-75 gap-2">
                   <FontAwesomeIcon icon={["fas", "phone"]} className="mt-1" />
-                  <div>(+95) 9 12345678</div>
+                  <div>(+1) 9 12345678</div>
                 </small>
               </div>
             </div>
