@@ -139,7 +139,11 @@ function Profile() {
 }
 
 Profile.getLayout = (page) => {
-  return <Layout simpleHeader>{page}</Layout>;
+  return (
+    <Layout simpleHeader hideAuth={true}>
+      {page}
+    </Layout>
+  );
 };
 
 export default Profile;
