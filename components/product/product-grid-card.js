@@ -51,7 +51,7 @@ function ProductGridCard({ product, id, title, off }) {
           <div className="hstack gap-2">
             <button className="btn btn-secondary text-primary flex-grow-1 d-md-block d-lg-none">
               <FontAwesomeIcon icon={["fas", "cart-plus"]} />
-              &nbsp;Add to card
+              &nbsp;Add to cart
             </button>
             <button className="btn btn-outline-secondary text-primary border d-md-block d-lg-none">
               <FontAwesomeIcon icon={["far", "heart"]} />
@@ -59,7 +59,7 @@ function ProductGridCard({ product, id, title, off }) {
 
             <button className="btn btn-sm btn-secondary text-primary flex-grow-1 d-none d-lg-block">
               <FontAwesomeIcon icon={["fas", "cart-plus"]} />
-              &nbsp;Add to card
+              &nbsp;Add to cart
             </button>
             <button className="btn btn-sm btn-outline-secondary text-primary border d-none d-lg-block">
               <FontAwesomeIcon icon={["far", "heart"]} />

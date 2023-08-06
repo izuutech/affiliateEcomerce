@@ -34,3 +34,39 @@ export const signin = async (body) => {
     return [null, resErr?.response?.data?.error || resErr.message];
   }
 };
+
+export const fundUser = async (body) => {
+  const token = localStorage.getItem("token");
+  const [res, resErr] = await handlePromise(
+    axios.post(`${baseUrl}user/fund`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  );
+  if (res) {
+    return [res.data, null];
+  } else {
+    clearCache(resErr?.response?.data?.error);
+    return [null, resErr?.response?.data?.error || resErr.message];
+  }
+};
+
+export const withdraw = async () => {
+  const token = localStorage.getItem("token");
+  const [res, resErr] = await handlePromise(
+    axios.get(`${baseUrl}user/withdraw`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  );
+  if (res) {
+    return [res.data, null];
+  } else {
+    clearCache(resErr?.response?.data?.error);
+    return [null, resErr?.response?.data?.error || resErr.message];
+  }
+};

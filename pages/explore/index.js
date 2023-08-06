@@ -11,7 +11,7 @@ function ExploreProducts() {
   const { isUserAuthenticated, authState } = useContext(AuthContext);
 
   const [products, setProducts] = useState([]);
-  const [pagination, setPagination] = useState({ page: 1, limit: 10 });
+  const [pagination, setPagination] = useState({ page: 1, limit: 6 });
 
   const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
     `fetch_orders_${pagination.page}`,

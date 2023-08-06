@@ -5,14 +5,49 @@ import Layout from "../../components/layout";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 import { useRouter } from "next/router";
+import { fundUser, withdraw } from "../../endpoints/user";
+import { toast } from "react-toastify";
 
 function Profile() {
   const router = useRouter();
-  const { isUserAuthenticated, authState } = useContext(AuthContext);
+  const { isUserAuthenticated, authState, updateUser } =
+    useContext(AuthContext);
 
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
   }, []);
+  const fund_account = async () => {
+    const yes = confirm(
+      "Are you sure you want to fund your wallet with your mastercard?"
+    );
+    if (yes) {
+      const [fund, fundErr] = await fundUser({ amount: 200 });
+      if (fund) {
+        window.localStorage.setItem("loggedInUser", JSON.stringify(fund.data));
+        updateUser(fund.data);
+        toast.success(fund.message);
+      } else {
+        toast.error(fundErr);
+      }
+    }
+  };
+
+  const withdraw_from_account = async () => {
+    const yes = confirm("Are you sure you want to withdraw all your balance?");
+    if (yes) {
+      const [withdrawn, withdrawnErr] = await withdraw({ amount: 200 });
+      if (withdrawn) {
+        window.localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify(withdrawn.data)
+        );
+        updateUser(withdrawn.data);
+        toast.success(withdrawn.message);
+      } else {
+        toast.error(withdrawnErr);
+      }
+    }
+  };
   return (
     <div>
       <div className="bg-secondary">
@@ -46,15 +81,22 @@ function Profile() {
                 <div className="row row-cols-1 row-cols-lg-2 g-3">
                   <div className="col">
                     <h5 className="my-auto fw-semibold">
-                      &#8358; {authState.user.balance.toFixed(2)}
+                      &#8358; {authState?.user?.balance?.toFixed(2)}
                     </h5>
                   </div>
                 </div>
                 <div className="col-md-12 mt-4">
-                  <button className="btn btn-primary">Fund With Card</button>
+                  <button className="btn btn-primary" onClick={fund_account}>
+                    Fund &#8358;200 With Card
+                  </button>
                 </div>
                 <div className="col-md-12 mt-4">
-                  <button className="btn btn-primary">Withdraw All</button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={withdraw_from_account}
+                  >
+                    Withdraw &#8358;{authState?.user?.balance}
+                  </button>
                 </div>
               </div>
             </div>
@@ -73,7 +115,7 @@ function Profile() {
                           type="text"
                           className="form-control"
                           disabled
-                          value={`${authState.user.lastName} ${authState.user.firstName}`}
+                          value={`${authState?.user?.lastName} ${authState?.user?.firstName}`}
                         />
                       </div>
 
@@ -84,7 +126,7 @@ function Profile() {
                             type="tel"
                             className="form-control"
                             disabled
-                            value={authState.user.phoneNumber}
+                            value={authState?.user?.phoneNumber}
                           />
                         </div>
                       </div>
@@ -94,7 +136,7 @@ function Profile() {
                           type="email"
                           className="form-control"
                           disabled
-                          value={authState.user.email}
+                          value={authState?.user?.email}
                         />
                       </div>
                       <div className="col-md-12">
@@ -103,7 +145,7 @@ function Profile() {
                           type="text"
                           className="form-control"
                           disabled
-                          value={authState.user.address}
+                          value={authState?.user?.address}
                         />
                       </div>
                       <div className="col-md-12">
@@ -112,7 +154,7 @@ function Profile() {
                           type="text"
                           className="form-control"
                           disabled
-                          value={authState.user.state}
+                          value={authState?.user?.state}
                         />
                       </div>
                       {/* <div className="col-md-12 mt-4">
@@ -135,7 +177,7 @@ function Profile() {
                   <div className="card-body">
                     <div className="row row-cols-1 row-cols-lg-2 g-3">
                       <div className="col">
-                        <AddressView address={authState.user.address} />
+                        <AddressView address={authState?.user?.address} />
                       </div>
                     </div>
                   </div>
