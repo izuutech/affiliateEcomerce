@@ -1,8 +1,28 @@
+import { useRouter } from "next/router";
 import AccountMenu from "../../components/account-menu";
 import CurrentOrderCard from "../../components/account/current-order-card";
 import Layout from "../../components/layout";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../contexts/auth-context";
+import { fetchOrders } from "../../endpoints/orders";
+import { useQuery } from "react-query";
 
 function CurrentOrders() {
+  const router = useRouter();
+  const { isUserAuthenticated, authState } = useContext(AuthContext);
+
+  useEffect(() => {
+    isUserAuthenticated() ? null : router.push("/auth/login");
+  }, []);
+
+  const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
+    `fetch_orders`,
+    async () => {
+      return await fetchOrders(current);
+    }
+  );
+
+  console.log(data?.data?.data);
   return (
     <div>
       <div className="bg-secondary">
@@ -27,8 +47,11 @@ function CurrentOrders() {
             <AccountMenu current="current-orders" />
           </div>
           <div className="col-lg-9">
-            <CurrentOrderCard id={10001} />
-            <CurrentOrderCard id={10002} />
+            {data?.data?.data &&
+              Array.isArray(data?.data?.data) &&
+              data?.data?.data.map((order) => (
+                <CurrentOrderCard id={order._id.substring(5)} order={order} />
+              ))}
           </div>
         </div>
       </div>
@@ -40,7 +63,11 @@ function CurrentOrders() {
 }
 
 CurrentOrders.getLayout = (page) => {
-  return <Layout simpleHeader>{page}</Layout>;
+  return (
+    <Layout simpleHeader hideAuth={true}>
+      {page}
+    </Layout>
+  );
 };
 
 export default CurrentOrders;

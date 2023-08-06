@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Layout from "../components/layout";
 import { AuthProvider } from "../contexts/auth-context";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 config.autoAddCss = false;
 library.add(fab, fas, far);
@@ -19,43 +20,48 @@ if (typeof window !== "undefined") {
 }
 
 function MyApp({ Component, pageProps }) {
+  const queryClient = new QueryClient();
   const getLayout = Component.getLayout;
   if (getLayout) {
     return getLayout(
-      <AuthProvider>
-        <Component {...pageProps} />
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-      </AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Component {...pageProps} />
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+        </AuthProvider>
+      </QueryClientProvider>
     );
   }
 
   return (
-    <AuthProvider>
-      <Layout>
-        <Component {...pageProps} />
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-      </Layout>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Layout>
+          <Component {...pageProps} />
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+        </Layout>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
 

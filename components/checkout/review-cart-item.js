@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-function ReviewCartItem({ id }) {
+function ReviewCartItem({ product, id }) {
   return (
     <div className="d-flex">
       <div className="flex-shink-0">
@@ -19,15 +19,15 @@ function ReviewCartItem({ id }) {
         <div className="vstack">
           <Link href="/product/1" className="text-dark text-decoration-none">
             {/* <a className="text-dark text-decoration-none">  */}
-            Product name here
+            {product.title}
             {/* </a> */}
           </Link>
           <small className="text-muted mb-2" style={{ fontSize: 12 }}>
-            <span>Medium</span>
-            ,&nbsp;
-            <span>White</span>
+            <span>Qty</span>
+            :&nbsp;
+            <span>1</span>
           </small>
-          <h6 className="mb-0">1 &times; 10,000</h6>
+          <h6 className="mb-0">&#8358;{product.price.toFixed(2)}</h6>
         </div>
       </div>
     </div>

@@ -43,6 +43,7 @@ const AuthProvider = ({ children }) => {
     <Provider
       value={{
         authState,
+        user: authState.user,
         setAuthState: (userAuthInfo) => setUserAuthInfo(userAuthInfo),
         isUserAuthenticated,
       }}

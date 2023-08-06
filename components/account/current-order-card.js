@@ -1,7 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReviewCartItem from "../checkout/review-cart-item";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/auth-context";
 
-function CurrentOrderCard({ id }) {
+function CurrentOrderCard({ order, id }) {
+  const { user } = useContext(AuthContext);
   return (
     <div className="card border-0 shadow-sm mb-3">
       <div className="card-header py-3 bg-white">
@@ -21,11 +24,11 @@ function CurrentOrderCard({ id }) {
           <div className="col-md-5">
             <h6 className="fw-bold">Shipping Address</h6>
             <div className="vstack text-dark small">
-              <span>Milk Mocha</span>
-              <span>No. 33, Mocha Street, Milk Township</span>
-              <span>Yangon, Myanmar</span>
-              <span>Tel: +95911223344</span>
-              <span>Email: milkmocha@domain.com</span>
+              <span>{`${user.lastName} ${user.firstName}`}</span>
+              <span>{user.address}</span>
+              <span>{user.state}</span>
+              <span>Tel: {user.phoneNumber}</span>
+              <span>Email: {user.email}</span>
             </div>
           </div>
           <div className="col-md-4">
@@ -36,14 +39,30 @@ function CurrentOrderCard({ id }) {
               </span>
               <span className="ms-2 small">XXXX-XXXX-XXXX-2345</span>
             </div>
-            <div>Subtotal: 30,000</div>
-            <div>Delivery fee: 3,000</div>
-            <div className="fw-semibold">Total: 33,000</div>
+            <div>Subtotal: &#8358;{order.product.price.toFixed(2)}</div>
+            <div>Delivery fee: &#8358;0</div>
+            <div className="fw-semibold">
+              Total: &#8358;{order.product.price.toFixed(2)}
+            </div>
           </div>
           <div className="col-md-3">
             <h6 className="fw-bold">Status</h6>
-            <div className="text-warning">
-              <span className="fw-semibold">PROCESSING</span>
+            <div
+              className={
+                order.status === "pending"
+                  ? "text-warning"
+                  : order.status === "success"
+                  ? "text-success"
+                  : "text-danger"
+              }
+            >
+              <span className="fw-semibold">
+                {order.status === "pending"
+                  ? "PROCESSING"
+                  : order.status === "success"
+                  ? "Delivered"
+                  : "Failed"}
+              </span>
             </div>
           </div>
         </div>
@@ -52,18 +71,18 @@ function CurrentOrderCard({ id }) {
 
         <div className="row row-cols-1 row-cols-md-2 g-3">
           <div className="col">
+            <ReviewCartItem product={order?.product} />
+          </div>
+          {/* <div className="col">
             <ReviewCartItem />
           </div>
           <div className="col">
             <ReviewCartItem />
-          </div>
-          <div className="col">
-            <ReviewCartItem />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="card-footer small border-0 py-3 text-muted">
-        Order Date: {new Date().toDateString()}
+        Order Date: {new Date(order?.createdAt).toDateString()}
       </div>
     </div>
   );
