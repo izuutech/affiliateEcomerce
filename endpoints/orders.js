@@ -36,9 +36,9 @@ export const changeOrderStatus = async (id, status) => {
     )
   );
   if (res) {
-    return { data: res.data, err: null };
+    return [res.data, null];
   } else {
     clearCache(resErr?.response?.data?.error);
-    return { data: null, err: resErr?.response?.data?.error || resErr.message };
+    return [null, resErr?.response?.data?.error || resErr.message];
   }
 };

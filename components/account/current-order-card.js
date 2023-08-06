@@ -2,9 +2,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReviewCartItem from "../checkout/review-cart-item";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth-context";
+import { changeOrderStatus } from "../../endpoints/orders";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 function CurrentOrderCard({ order, id }) {
   const { user } = useContext(AuthContext);
+  const router = useRouter();
+  const changeStatus = async (status) => {
+    const [changed, changedErr] = await changeOrderStatus(order?._id, status);
+    if (changed) {
+      toast.success(changed.message);
+      setTimeout(() => {
+        router.reload();
+      }, 2000);
+    } else {
+      toast.error(changedErr);
+    }
+  };
   return (
     <div className="card border-0 shadow-sm mb-3">
       <div className="card-header py-3 bg-white">
@@ -13,10 +28,21 @@ function CurrentOrderCard({ order, id }) {
             <span className="fw-semibold h5 my-auto">Order ID: {id}</span>
           </div>
           <div className="col-auto">
-            <button className="btn btn-sm btn-outline-danger">
-              Cancel order
+            <button
+              className="btn btn-sm btn-outline-success"
+              onClick={() => changeStatus("success")}
+            >
+              Mark as delivered
             </button>
           </div>
+          {/* <div className="col-auto">
+            <button
+              className="btn btn-sm btn-outline-danger"
+              onClick={() => changeStatus("failed")}
+            >
+              Cancel order
+            </button>
+          </div> */}
         </div>
       </div>
       <div className="card-body">

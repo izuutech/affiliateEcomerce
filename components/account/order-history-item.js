@@ -60,9 +60,21 @@ function OrderHistoryItem({ order, id, cancel }) {
           </div>
           <div className="col-md-3">
             <h6 className="fw-bold">Status</h6>
-            <div className={cancel ? "text-danger" : "text-success"}>
+            <div
+              className={
+                order.status === "failed"
+                  ? "text-danger"
+                  : order?.status === "success"
+                  ? "text-success"
+                  : "text-warning"
+              }
+            >
               <span className="fw-semibold">
-                {cancel ? "CANCELLED" : "DELIVERED"}
+                {order.status === "failed"
+                  ? "CANCELLED"
+                  : order?.status === "success"
+                  ? "DELIVERED"
+                  : "PENDING"}
               </span>
             </div>
           </div>
