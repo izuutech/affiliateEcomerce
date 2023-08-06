@@ -2,12 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Layout from "../../components/layout";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { signin } from "../../endpoints/user";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../contexts/auth-context";
 
 function Login() {
   const router = useRouter();
+  const { setAuthState } = useContext(AuthContext);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -28,7 +30,8 @@ function Login() {
       const [loggedin, loggedinErr] = await signin(form);
       if (loggedin) {
         toast.success(loggedin.message);
-        localStorage.setItem("token", loggedin.data.userToken);
+        setAuthState(loggedin);
+        // localStorage.setItem("token", loggedin.data.userToken);
         setTimeout(() => {
           router.push({ pathname: "/account/profile" });
         }, 2000);

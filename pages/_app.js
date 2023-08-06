@@ -9,6 +9,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Layout from "../components/layout";
+import { AuthProvider } from "../contexts/auth-context";
 
 config.autoAddCss = false;
 library.add(fab, fas, far);
@@ -21,7 +22,7 @@ function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout;
   if (getLayout) {
     return getLayout(
-      <>
+      <AuthProvider>
         <Component {...pageProps} />
         <ToastContainer
           position="top-right"
@@ -34,25 +35,27 @@ function MyApp({ Component, pageProps }) {
           draggable
           pauseOnHover
         />
-      </>
+      </AuthProvider>
     );
   }
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-    </Layout>
+    <AuthProvider>
+      <Layout>
+        <Component {...pageProps} />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </Layout>
+    </AuthProvider>
   );
 }
 

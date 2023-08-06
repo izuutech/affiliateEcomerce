@@ -2,12 +2,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AccountMenu from "../../components/account-menu";
 import AddressView from "../../components/account/address-view";
 import Layout from "../../components/layout";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../contexts/auth-context";
+import { useRouter } from "next/router";
 
 const cities = ["Yangon", "Mandalay", "Kalaw"];
 
 const states = ["Thar Kay Ta", "Daw Pon", "San Chaung"];
 
 function Profile() {
+  const router = useRouter();
+  const { isUserAuthenticated } = useContext(AuthContext);
+
+  useEffect(() => {
+    isUserAuthenticated() ? null : router.push("/auth/login");
+  }, []);
   return (
     <div>
       <div className="bg-secondary">

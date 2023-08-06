@@ -14,6 +14,7 @@ function SignUp() {
     firstName: "",
     lastName: "",
     phoneNumber: "",
+    address: "",
     state: states[0],
     password: "",
     confirmPassword: "",
@@ -97,7 +98,16 @@ function SignUp() {
                     value={form.phoneNumber}
                   />
                 </div>
-
+                <div className="col-md-12">
+                  <label className="form-label">Shipping Address</label>
+                  <input
+                    type="address"
+                    className="form-control"
+                    name="address"
+                    onChange={onChange}
+                    value={form.address}
+                  />
+                </div>
                 <div className="col-md-6">
                   <label className="form-label">State</label>
                   <select

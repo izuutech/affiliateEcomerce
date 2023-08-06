@@ -11,3 +11,6 @@ E-commerce consumer front-end template. [Live Preview](https://mmm)
 cd styles
 sass scss/bootstrap-custom.scss:bootstrap-custom.css
 ```
+
+- TOdo
+  Verify jwt expiry when on authenticated route
