@@ -1,8 +1,26 @@
+import { useRouter } from "next/router";
 import AccountMenu from "../../components/account-menu";
 import OrderHistoryItem from "../../components/account/order-history-item";
 import Layout from "../../components/layout";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../contexts/auth-context";
+import { fetchOrders } from "../../endpoints/orders";
+import { useQuery } from "react-query";
 
 function OrderHistory() {
+  const router = useRouter();
+  const { isUserAuthenticated, authState } = useContext(AuthContext);
+
+  useEffect(() => {
+    isUserAuthenticated() ? null : router.push("/auth/login");
+  }, []);
+
+  const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
+    `fetch_orders`,
+    async () => {
+      return await fetchOrders();
+    }
+  );
   return (
     <div>
       <div className="bg-secondary">
@@ -27,8 +45,15 @@ function OrderHistory() {
             <AccountMenu current="order-history" />
           </div>
           <div className="col-lg-9">
-            <OrderHistoryItem id={20001} />
-            <OrderHistoryItem id={20002} cancel />
+            {data?.data?.data &&
+              Array.isArray(data?.data?.data) &&
+              data?.data?.data.map((order) => (
+                <OrderHistoryItem
+                  id={order._id.substring(5)}
+                  cancel={order.status === "success" ? false : true}
+                  order={order}
+                />
+              ))}
 
             <nav className="float-end mt-3">
               <ul className="pagination">
@@ -70,7 +95,11 @@ function OrderHistory() {
 }
 
 OrderHistory.getLayout = (page) => {
-  return <Layout simpleHeader>{page}</Layout>;
+  return (
+    <Layout simpleHeader hideAuth>
+      {page}
+    </Layout>
+  );
 };
 
 export default OrderHistory;
