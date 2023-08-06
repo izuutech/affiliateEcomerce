@@ -26,24 +26,24 @@ function ProductGridCard({ id, title, off }) {
   return (
     <div className="card h-100 border-0 shadow-sm">
       <Link href="/product/1">
-        <a>
-          <div className="ratio ratio-1x1">
-            <img
-              className="card-img-top "
-              src={`https://source.unsplash.com/random/200x240?random=${Math.floor(
-                Math.random() * 100
-              )}`}
-              alt="Product image."
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-          {percentOff}
-        </a>
+        <div className="ratio ratio-1x1">
+          <img
+            className="card-img-top "
+            src={`https://source.unsplash.com/random/200x240?random=${Math.floor(
+              Math.random() * 100
+            )}`}
+            alt="Product image."
+            style={{ objectFit: "cover" }}
+          />
+        </div>
+        {percentOff}
       </Link>
       <div className="card-body">
         <div className="vstack gap-2">
-          <Link href="/product/1">
-            <a className="text-dark text-decoration-none">Product name here</a>
+          <Link href="/product/1" className="text-dark text-decoration-none">
+            {/* <a className="text-dark text-decoration-none"> */}
+            Product name here
+            {/* </a> */}
           </Link>
 
           <h6 className="fw-semibold">{offPrice}</h6>

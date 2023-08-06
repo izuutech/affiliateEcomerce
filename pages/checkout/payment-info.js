@@ -92,11 +92,21 @@ function PaymentInfo() {
 
                 <div className="col-md-12 mt-4">
                   <div className="d-grid gap-2 d-flex justify-content-end">
-                    <Link href="/checkout/delivery-info">
-                      <a className="btn btn-outline-primary">Back</a>
+                    <Link
+                      href="/checkout/delivery-info"
+                      className="btn btn-outline-primary"
+                    >
+                      {/* <a className="btn btn-outline-primary"> */}
+                      Back
+                      {/* </a> */}
                     </Link>
-                    <Link href="/checkout/confirm-checkout">
-                      <a className="btn btn-primary">Continue</a>
+                    <Link
+                      href="/checkout/confirm-checkout"
+                      className="btn btn-primary"
+                    >
+                      {/* <a className="btn btn-primary"> */}
+                      Continue
+                      {/* </a> */}
                     </Link>
                   </div>
                 </div>

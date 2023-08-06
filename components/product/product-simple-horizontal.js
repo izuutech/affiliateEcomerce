@@ -17,8 +17,10 @@ function ProductSimpleHorizontal({ id }) {
         />
       </div>
       <div className="d-flex flex-column flex-grow-1 ms-3">
-        <Link href="/product/1">
-          <a className="text-dark text-decoration-none">Product name here</a>
+        <Link href="/product/1" className="text-dark text-decoration-none">
+          {/* <a className="text-dark text-decoration-none"> */}
+          Product name here
+          {/* </a> */}
         </Link>
         <h6 className="mb-0 fw-semibold">10000Ks</h6>
         <div className="mt-auto">

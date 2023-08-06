@@ -74,8 +74,13 @@ function SignUp() {
               <hr className="text-muted" />
               <div className="text-center">
                 Already have an account?{" "}
-                <Link href="/auth/login">
-                  <a className="text-decoration-none fw-medium">Login</a>
+                <Link
+                  href="/auth/login"
+                  className="text-decoration-none fw-medium"
+                >
+                  {/* <a className="text-decoration-none fw-medium"> */}
+                  Login
+                  {/* </a> */}
                 </Link>
               </div>
             </div>

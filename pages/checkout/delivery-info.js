@@ -82,11 +82,21 @@ function DeliveryInfo() {
 
                 <div className="col-md-12 mt-4">
                   <div className="d-grid gap-2 d-flex justify-content-end">
-                    <Link href="/shopping-cart">
-                      <a className="btn btn-outline-primary">Cancel</a>
+                    <Link
+                      href="/shopping-cart"
+                      className="btn btn-outline-primary"
+                    >
+                      {/* <a className="btn btn-outline-primary"> */}
+                      Cancel
+                      {/* </a> */}
                     </Link>
-                    <Link href="/checkout/payment-info">
-                      <a className="btn btn-primary">Continue</a>
+                    <Link
+                      href="/checkout/payment-info"
+                      className="btn btn-primary"
+                    >
+                      {/* <a className="btn btn-primary"> */}
+                      Continue
+                      {/* </a> */}
                     </Link>
                   </div>
                 </div>

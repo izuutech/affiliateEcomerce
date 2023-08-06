@@ -73,8 +73,13 @@ function ConfirmCheckout() {
               >
                 Confirm
               </button>
-              <Link href="/checkout/payment-info">
-                <a className="btn btn-outline-primary">Return</a>
+              <Link
+                href="/checkout/payment-info"
+                className="btn btn-outline-primary"
+              >
+                {/* <a className="btn btn-outline-primary"> */}
+                Return
+                {/* </a> */}
               </Link>
             </div>
           </PricingCard>

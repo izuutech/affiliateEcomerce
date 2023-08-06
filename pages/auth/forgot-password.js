@@ -32,8 +32,13 @@ function ForgotPassword() {
             <hr className="text-muted my-0" />
             <div className="text-center p-3">
               Don&lsquo;t hanve an account?{" "}
-              <Link href="/auth/sign-up">
-                <a className="text-decoration-none fw-medium">Register</a>
+              <Link
+                href="/auth/sign-up"
+                className="text-decoration-none fw-medium"
+              >
+                {/* <a className="text-decoration-none fw-medium"> */}
+                Register
+                {/* </a> */}
               </Link>
             </div>
           </div>

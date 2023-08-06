@@ -26,8 +26,13 @@ function Login() {
                   <input type="password" className="form-control" />
                 </div>
                 <div className="col-md-12">
-                  <Link href="/auth/forgot-password">
-                    <a className="text-decoration-none">Forgot password?</a>
+                  <Link
+                    href="/auth/forgot-password"
+                    className="text-decoration-none"
+                  >
+                    {/* <a className="text-decoration-none"> */}
+                    Forgot password?
+                    {/* </a> */}
                   </Link>
                 </div>
                 <div className="col-md-12 mt-4">
@@ -73,8 +78,13 @@ function Login() {
             <hr className="text-muted my-0" />
             <div className="text-center p-3">
               Don&lsquo;t hanve an account?{" "}
-              <Link href="/auth/sign-up">
-                <a className="text-decoration-none fw-medium">Register</a>
+              <Link
+                href="/auth/sign-up"
+                className="text-decoration-none fw-medium"
+              >
+                {/* <a className="text-decoration-none fw-medium"> */}
+                Register
+                {/* </a> */}
               </Link>
             </div>
           </div>

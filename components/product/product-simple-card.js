@@ -15,10 +15,13 @@ function ProductSimpleCard({ id, title }) {
         />
       </div>
       <div className="card-body">
-        <Link href="/product/1">
-          <a className="mb-1 text-dark text-decoration-none stretched-link">
-            Product name here
-          </a>
+        <Link
+          href="/product/1"
+          className="mb-1 text-dark text-decoration-none stretched-link"
+        >
+          {/* <a className="mb-1 text-dark text-decoration-none stretched-link"> */}
+          Product name here
+          {/* </a> */}
         </Link>
 
         <ProductRating />

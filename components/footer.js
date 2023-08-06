@@ -51,17 +51,25 @@ function Footer() {
             <div className="col-md-6 col-lg-2 d-none d-md-block">
               <h5 className="text-light">Account</h5>
               <div className="vstack small gap-2">
-                <Link href="/auth/login">
-                  <a className="footer-link">User Login</a>
+                <Link href="/auth/login" className="footer-link">
+                  {/* <a className="footer-link"> */}
+                  User Login
+                  {/* </a> */}
                 </Link>
-                <Link href="/auth/sign-up">
-                  <a className="footer-link">User Register</a>
+                <Link href="/auth/sign-up" className="footer-link">
+                  {/* <a className="footer-link"> */}
+                  User Register
+                  {/* </a> */}
                 </Link>
-                <Link href="/account/profile">
-                  <a className="footer-link">Account Setting</a>
+                <Link href="/account/profile" className="footer-link">
+                  {/* <a className="footer-link"> */}
+                  Account Setting
+                  {/* </a> */}
                 </Link>
-                <Link href="/account/current-orders">
-                  <a className="footer-link">My Orders</a>
+                <Link href="/account/current-orders" className="footer-link">
+                  {/* <a className="footer-link"> */}
+                  My Orders
+                  {/* </a> */}
                 </Link>
               </div>
             </div>
@@ -97,7 +105,7 @@ function Footer() {
       <footer className="py-4 bg-primary-dark">
         <div className="container d-flex">
           <span className="text-light text-opacity-50 my-auto">
-            &copy; {new Date().getFullYear()} Mocha Mart
+            &copy; {new Date().getFullYear()} The Affiliate
           </span>
           <div className="ms-auto hstack gap-4">
             <a href="#" className="ms-auto link-light">
