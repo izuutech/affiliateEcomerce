@@ -2,9 +2,43 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Layout from "../../components/layout";
+import { useState } from "react";
+import { signin } from "../../endpoints/user";
+import { toast } from "react-toastify";
 
 function Login() {
   const router = useRouter();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const onChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (form.password && form.email) {
+      const [loggedin, loggedinErr] = await signin(form);
+      if (loggedin) {
+        toast.success(loggedin.message);
+        localStorage.setItem("token", loggedin.data.userToken);
+        setTimeout(() => {
+          router.push({ pathname: "/account/profile" });
+        }, 2000);
+      } else {
+        toast.error(loggedinErr);
+      }
+    } else {
+      toast.error("Email and password is required");
+    }
+  };
   return (
     <div className="container py-3">
       <div className="row my-4">
@@ -12,18 +46,27 @@ function Login() {
           <div className="card border-0 shadow-sm">
             <div className="card-body px-4">
               <h4 className="card-title fw-bold mt-2 mb-4">Sign In</h4>
-              <form className="row g-2">
+              <form className="row g-2" onSubmit={submit} method="post">
                 <div className="col-md-12">
                   <label className="form-label">Email</label>
                   <input
                     type="email"
                     className="form-control"
                     placeholder="name@domain.com"
+                    name="email"
+                    value={form.email}
+                    onChange={onChange}
                   />
                 </div>
                 <div className="col-md-12">
                   <label className="form-label">Password</label>
-                  <input type="password" className="form-control" />
+                  <input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    value={form.password}
+                    onChange={onChange}
+                  />
                 </div>
                 <div className="col-md-12">
                   <Link
@@ -36,17 +79,11 @@ function Login() {
                   </Link>
                 </div>
                 <div className="col-md-12 mt-4">
-                  <button
-                    type="button"
-                    className="btn btn-primary w-100"
-                    onClick={() => {
-                      router.push({ pathname: "/account/profile" });
-                    }}
-                  >
+                  <button type="submit" className="btn btn-primary w-100">
                     Login
                   </button>
                 </div>
-                <div className="col-md-12">
+                {/* <div className="col-md-12">
                   <div className="row g-2">
                     <div className="col">
                       <hr className="text-muted" />
@@ -58,9 +95,9 @@ function Login() {
                       <hr className="text-muted" />
                     </div>
                   </div>
-                </div>
+                </div> */}
 
-                <div className="col-md-12">
+                {/* <div className="col-md-12">
                   <div className="hstack gap-2 justify-content-center">
                     <button className="btn-facebook rounded-circle">
                       <FontAwesomeIcon icon={["fab", "facebook-f"]} />
@@ -72,7 +109,7 @@ function Login() {
                       <FontAwesomeIcon icon={["fab", "apple"]} />
                     </button>
                   </div>
-                </div>
+                </div> */}
               </form>
             </div>
             <hr className="text-muted my-0" />

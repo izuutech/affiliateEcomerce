@@ -3,10 +3,12 @@ import Layout from "../../components/layout";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { signup } from "../../endpoints/user";
+import { useRouter } from "next/router";
 
 const states = ["Imo", "Abia", "Enugu"];
 
 function SignUp() {
+  const router = useRouter();
   const [form, setForm] = useState({
     email: "",
     firstName: "",
@@ -25,11 +27,9 @@ function SignUp() {
       ...form,
       [name]: value,
     });
-    console.log(form);
   };
   const submit = async (e) => {
     e.preventDefault();
-    console.log("mee");
     if (
       form.password &&
       form.confirmPassword &&
@@ -39,7 +39,7 @@ function SignUp() {
       if (registered) {
         toast.success(registered.message);
         setTimeout(() => {
-          window.location.href = "/auth/login";
+          router.push({ pathname: "/auth/login" });
         }, 2000);
       } else {
         toast.error(registeredErr);

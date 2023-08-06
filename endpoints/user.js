@@ -16,3 +16,18 @@ export const signup = async (body) => {
     return [null, resErr?.response?.data?.error || resErr.message];
   }
 };
+
+export const signin = async (body) => {
+  const [res, resErr] = await handlePromise(
+    axios.post(`${baseUrl}login`, body, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  );
+  if (res) {
+    return [res.data, null];
+  } else {
+    return [null, resErr?.response?.data?.error || resErr.message];
+  }
+};
