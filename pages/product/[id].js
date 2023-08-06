@@ -19,7 +19,9 @@ function ProductDetail() {
 
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
     `fetch_product_${id}`,
     async () => {
@@ -34,7 +36,7 @@ function ProductDetail() {
 
   useEffect(() => {
     localStorage.setItem("cartProduct", id);
-  }, []);
+  }, [id]);
   return (
     <div className="vstack">
       <div className="bg-secondary">

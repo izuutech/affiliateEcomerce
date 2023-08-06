@@ -19,6 +19,7 @@ function ConfirmCheckout() {
   const user = authState?.user;
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(

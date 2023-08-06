@@ -13,6 +13,7 @@ function OrderHistory() {
 
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
@@ -49,6 +50,7 @@ function OrderHistory() {
               Array.isArray(data?.data?.data) &&
               data?.data?.data.map((order) => (
                 <OrderHistoryItem
+                  key={order?._id}
                   id={order._id.substring(5)}
                   cancel={order.status === "success" ? false : true}
                   order={order}

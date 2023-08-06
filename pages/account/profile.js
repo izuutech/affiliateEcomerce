@@ -15,6 +15,7 @@ function Profile() {
 
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const fund_account = async () => {
     const yes = confirm(

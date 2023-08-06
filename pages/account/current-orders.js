@@ -13,6 +13,7 @@ function CurrentOrders() {
 
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
@@ -49,7 +50,11 @@ function CurrentOrders() {
             {data?.data?.data &&
               Array.isArray(data?.data?.data) &&
               data?.data?.data.map((order) => (
-                <CurrentOrderCard id={order._id.substring(5)} order={order} />
+                <CurrentOrderCard
+                  key={order?._id}
+                  id={order._id.substring(5)}
+                  order={order}
+                />
               ))}
           </div>
         </div>

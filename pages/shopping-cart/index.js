@@ -25,6 +25,7 @@ function ShoppingCart() {
     } else {
       setProductId(product);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
