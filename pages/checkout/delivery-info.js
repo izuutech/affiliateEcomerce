@@ -2,8 +2,18 @@ import Link from "next/link";
 import CheckoutStepper from "../../components/checkout/checkout-stepper";
 import PricingCard from "../../components/shopping-cart/pricing-card";
 import Layout from "../../components/layout";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../contexts/auth-context";
+import { useRouter } from "next/router";
 
 function DeliveryInfo() {
+  const router = useRouter();
+  const { ref, qty, product } = router.query;
+  const { isUserAuthenticated, authState } = useContext(AuthContext);
+
+  useEffect(() => {
+    isUserAuthenticated() ? null : router.push("/auth/login");
+  }, []);
   return (
     <div className="container py-4">
       <div className="row">
@@ -19,21 +29,31 @@ function DeliveryInfo() {
                 <h4 className="fw-semibold mb-0">Contact Info</h4>
                 <div className="col-md-6">
                   <label className="form-label">First Name</label>
-                  <input type="text" className="form-control" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    disabled
+                    value={authState.user.firstName}
+                  />
                 </div>
                 <div className="col-md-6">
                   <label className="form-label">Last Name</label>
-                  <input type="text" className="form-control" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    disabled
+                    value={authState.user.lastName}
+                  />
                 </div>
                 <div className="col-md-6">
                   <label className="form-label">Phone</label>
                   <div className="input-group">
-                    <div>
-                      <select className="form-select rounded-0 rounded-start bg-light">
-                        <option>+95</option>
-                      </select>
-                    </div>
-                    <input type="tel" className="form-control" />
+                    <input
+                      type="tel"
+                      className="form-control"
+                      disabled
+                      value={authState.user.phoneNumber}
+                    />
                   </div>
                 </div>
                 <div className="col-md-6">
@@ -42,6 +62,8 @@ function DeliveryInfo() {
                     type="email"
                     className="form-control"
                     placeholder="name@domain.com"
+                    disabled
+                    value={authState.user.email}
                   />
                 </div>
 
@@ -52,46 +74,42 @@ function DeliveryInfo() {
                 <h4 className="fw-semibold mb-0">Shipping Info</h4>
                 <div className="col-md-12">
                   <label className="form-label">Address</label>
-                  <input type="text" className="form-control" />
-                </div>
-                <div className="col-md-4">
-                  <label className="form-label">City</label>
-                  <select className="form-select">
-                    <option>Yangon</option>
-                  </select>
-                </div>
-                <div className="col-md-4">
-                  <label className="form-label">Area</label>
-                  <select className="form-select">
-                    <option>Thar Kay Ta</option>
-                  </select>
-                </div>
-                <div className="col-md-4">
-                  <label className="form-label">Postal Code</label>
-                  <input type="text" className="form-control" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    disabled
+                    value={authState.user.address}
+                  />
                 </div>
 
-                <div className="col-md-12">
+                <div className="col-md-4">
+                  <label className="form-label">State</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    disabled
+                    value={authState.user.state}
+                  />
+                </div>
+
+                {/* <div className="col-md-12">
                   <div className="form-check">
                     <input className="form-check-input" type="checkbox" />
                     <label className="form-check-label">
                       Save this address
                     </label>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="col-md-12 mt-4">
                   <div className="d-grid gap-2 d-flex justify-content-end">
-                    <Link
-                      href="/shopping-cart"
-                      className="btn btn-outline-primary"
-                    >
+                    <Link href="/" className="btn btn-outline-primary">
                       {/* <a className="btn btn-outline-primary"> */}
                       Cancel
                       {/* </a> */}
                     </Link>
                     <Link
-                      href="/checkout/payment-info"
+                      href={`/checkout/payment-info?product=${product}&ref=${ref}&qty=${qty}`}
                       className="btn btn-primary"
                     >
                       {/* <a className="btn btn-primary"> */}
