@@ -41,3 +41,25 @@ export const fetchSingleProduct = async (id) => {
     return { data: null, err: resErr?.response?.data?.error || resErr.message };
   }
 };
+
+export const purchaseProduct = async (productId, affiliate, quantity) => {
+  console.log("kkkk");
+  const token = localStorage.getItem("token");
+  const [res, resErr] = await handlePromise(
+    axios.get(
+      `${baseUrl}t/purchase/${productId}?ref=${affiliate}&quantity=${quantity}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  );
+  if (res) {
+    return [res.data, null];
+  } else {
+    clearCache(resErr?.response?.data?.error);
+    return [null, resErr?.response?.data?.error || resErr.message];
+  }
+};

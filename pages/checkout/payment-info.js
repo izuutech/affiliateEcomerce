@@ -1,13 +1,30 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CheckoutStepper from "../../components/checkout/checkout-stepper";
 import PaymentOptionCheck from "../../components/checkout/payment-option-check";
 import Layout from "../../components/layout";
 import PricingCard from "../../components/shopping-cart/pricing-card";
+import { AuthContext } from "../../contexts/auth-context";
+import { useRouter } from "next/router";
+import { fetchSingleProduct } from "../../endpoints/products";
+import { useQuery } from "react-query";
 
 function PaymentInfo() {
   const [option, setOption] = useState("visa");
+  const router = useRouter();
+  const { ref, qty, product } = router.query;
+  const { isUserAuthenticated, authState } = useContext(AuthContext);
 
+  useEffect(() => {
+    isUserAuthenticated() ? null : router.push("/auth/login");
+  }, []);
+
+  const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
+    `fetch_product_${product}`,
+    async () => {
+      return await fetchSingleProduct(product);
+    }
+  );
   function handlePaymentOptionChange(name) {
     setOption(name);
   }
@@ -33,21 +50,21 @@ function PaymentInfo() {
                       checked={option == "cod"}
                       onCheckedChanged={setOption}
                     />
-                    <PaymentOptionCheck
+                    {/* <PaymentOptionCheck
                       name="mpu"
                       title="MPU"
                       checked={option == "mpu"}
                       onCheckedChanged={setOption}
-                    />
+                    /> */}
                     <PaymentOptionCheck
                       name="visa"
-                      title="VISA"
+                      title="Pay from wallet balance"
                       checked={option == "visa"}
                       onCheckedChanged={setOption}
                     />
                   </div>
                 </div>
-                <div className="col-md-12">
+                {/* <div className="col-md-12">
                   <label className="form-label">Name on card</label>
                   <input type="text" className="form-control" />
                 </div>
@@ -88,12 +105,12 @@ function PaymentInfo() {
                       />
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="col-md-12 mt-4">
                   <div className="d-grid gap-2 d-flex justify-content-end">
                     <Link
-                      href="/checkout/delivery-info"
+                      href={`/checkout/delivery-info?product=${product}&ref=${ref}&qty=${qty}`}
                       className="btn btn-outline-primary"
                     >
                       {/* <a className="btn btn-outline-primary"> */}
@@ -101,7 +118,7 @@ function PaymentInfo() {
                       {/* </a> */}
                     </Link>
                     <Link
-                      href="/checkout/confirm-checkout"
+                      href={`/checkout/confirm-checkout?product=${product}&ref=${ref}&qty=${qty}`}
                       className="btn btn-primary"
                     >
                       {/* <a className="btn btn-primary"> */}
@@ -115,7 +132,7 @@ function PaymentInfo() {
           </div>
         </div>
         <div className="col-lg-4">
-          <PricingCard pricingOnly />
+          <PricingCard pricingOnly product={data?.data?.data} />
         </div>
       </div>
       <br />

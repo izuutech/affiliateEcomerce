@@ -2,6 +2,7 @@ import axios from "axios";
 import { baseUrl } from "../utils/constants.utils";
 import handlePromise from "../utils/handlePromise.utils";
 import { clearCache } from "./shared";
+
 export const fetchOrders = async (type) => {
   const token = localStorage.getItem("token");
   const [res, resErr] = await handlePromise(

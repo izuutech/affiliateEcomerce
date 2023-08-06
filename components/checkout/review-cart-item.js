@@ -19,7 +19,7 @@ function ReviewCartItem({ product, id }) {
         <div className="vstack">
           <Link href="/product/1" className="text-dark text-decoration-none">
             {/* <a className="text-dark text-decoration-none">  */}
-            {product.title}
+            {product?.title}
             {/* </a> */}
           </Link>
           <small className="text-muted mb-2" style={{ fontSize: 12 }}>
@@ -27,7 +27,7 @@ function ReviewCartItem({ product, id }) {
             :&nbsp;
             <span>1</span>
           </small>
-          <h6 className="mb-0">&#8358;{product.price.toFixed(2)}</h6>
+          <h6 className="mb-0">&#8358;{product?.price?.toFixed(2)}</h6>
         </div>
       </div>
     </div>
