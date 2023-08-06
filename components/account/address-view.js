@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function AddressView() {
+function AddressView({ address }) {
   return (
     <div className="bg-background rounded px-3 py-2 d-flex gap-2 align-items-center">
       <FontAwesomeIcon
@@ -9,9 +9,7 @@ function AddressView() {
         size="lg"
       />
       <div className="text-truncate" style={{ maxHeight: 44 }}>
-        <p className=" mb-0 small text-wrap">
-          No. 33, Mocha Street, Milk Township Yangon, Myanmar No.
-        </p>
+        <p className=" mb-0 small text-wrap">{address}</p>
       </div>
       <button className="btn btn-sm px-1 ms-auto">
         <FontAwesomeIcon icon={["fas", "ellipsis-v"]} className="text-muted" />

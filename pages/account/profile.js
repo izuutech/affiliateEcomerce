@@ -12,7 +12,7 @@ const states = ["Thar Kay Ta", "Daw Pon", "San Chaung"];
 
 function Profile() {
   const router = useRouter();
-  const { isUserAuthenticated } = useContext(AuthContext);
+  const { isUserAuthenticated, authState } = useContext(AuthContext);
 
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
@@ -51,69 +51,57 @@ function Profile() {
                     <form className="row g-3">
                       <div className="col-md-6">
                         <label className="form-label">Your Name</label>
-                        <input type="text" className="form-control" />
-                      </div>
-                      <div className="col-md-6">
-                        <label className="form-label">Password</label>
                         <input
-                          type="password"
-                          className="form-control bg-light"
+                          type="text"
+                          className="form-control"
                           disabled
+                          value={`${authState.user.lastName} ${authState.user.firstName}`}
                         />
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-link float-end p-0 text-decoration-none"
-                        >
-                          Change password
-                        </button>
                       </div>
+
                       <div className="col-md-12 mt-0">
                         <label className="form-label">Phone</label>
                         <div className="input-group">
-                          <div>
-                            <select className="form-select rounded-0 rounded-start bg-light">
-                              <option>+95</option>
-                            </select>
-                          </div>
-                          <input type="tel" className="form-control" />
+                          <input
+                            type="tel"
+                            className="form-control"
+                            disabled
+                            value={authState.user.phoneNumber}
+                          />
                         </div>
                       </div>
                       <div className="col-md-12">
                         <label className="form-label">Email</label>
-                        <input type="email" className="form-control" />
+                        <input
+                          type="email"
+                          className="form-control"
+                          disabled
+                          value={authState.user.email}
+                        />
                       </div>
                       <div className="col-md-12">
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" />
-                          <label className="form-check-label">Male</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" />
-                          <label className="form-check-label">Female</label>
-                        </div>
+                        <label className="form-label">Shipping Address</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          disabled
+                          value={authState.user.address}
+                        />
                       </div>
-                      <div className="col-md-6">
-                        <label className="form-label">City</label>
-                        <select className="form-select">
-                          {cities.map((e, i) => {
-                            return <option key={i}>{e}</option>;
-                          })}
-                        </select>
+                      <div className="col-md-12">
+                        <label className="form-label">State</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          disabled
+                          value={authState.user.state}
+                        />
                       </div>
-                      <div className="col-md-6">
-                        <label className="form-label">States</label>
-                        <select className="form-select">
-                          {states.map((e, i) => {
-                            return <option key={i}>{e}</option>;
-                          })}
-                        </select>
-                      </div>
-
-                      <div className="col-md-12 mt-4">
+                      {/* <div className="col-md-12 mt-4">
                         <button className="btn btn-primary float-end">
                           Update
                         </button>
-                      </div>
+                      </div> */}
                     </form>
                   </div>
                 </div>
@@ -121,19 +109,19 @@ function Profile() {
                 <div className="card border-0 shadow-sm">
                   <div className="p-3 d-flex border-bottom">
                     <h5 className="my-auto fw-semibold">Addresses</h5>
-                    <button className="btn btn-sm btn-secondary text-primary ms-auto">
+                    {/* <button className="btn btn-sm btn-secondary text-primary ms-auto">
                       <FontAwesomeIcon icon={["fas", "plus"]} />
                       &nbsp;Add new
-                    </button>
+                    </button> */}
                   </div>
                   <div className="card-body">
                     <div className="row row-cols-1 row-cols-lg-2 g-3">
                       <div className="col">
-                        <AddressView />
+                        <AddressView address={authState.user.address} />
                       </div>
-                      <div className="col">
+                      {/* <div className="col">
                         <AddressView />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
