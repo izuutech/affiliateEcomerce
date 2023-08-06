@@ -5,6 +5,8 @@ import Layout from "../../components/layout";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 import { useRouter } from "next/router";
+import { fetchSingleProduct } from "../../endpoints/products";
+import { useQuery } from "react-query";
 
 function DeliveryInfo() {
   const router = useRouter();
@@ -14,6 +16,13 @@ function DeliveryInfo() {
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
   }, []);
+
+  const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
+    `fetch_product_${product}`,
+    async () => {
+      return await fetchSingleProduct(product);
+    }
+  );
   return (
     <div className="container py-4">
       <div className="row">
@@ -123,7 +132,7 @@ function DeliveryInfo() {
           </div>
         </div>
         <div className="col-lg-4">
-          <PricingCard pricingOnly />
+          <PricingCard pricingOnly product={data?.data?.data} />
         </div>
       </div>
       <br />

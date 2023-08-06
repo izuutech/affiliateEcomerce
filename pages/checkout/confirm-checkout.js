@@ -33,9 +33,7 @@ function ConfirmCheckout() {
     if (purchased) {
       toast.success(purchased.message);
       updateUser();
-      router.push({
-        pathname: `/checkout/checkout-success?product=${product}&ref=${ref}`,
-      });
+      router.push(`/checkout/checkout-success?product=${product}&ref=${ref}`);
     } else {
       updateUser();
       toast.error(purchasedErr);

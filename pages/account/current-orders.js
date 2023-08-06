@@ -18,7 +18,7 @@ function CurrentOrders() {
   const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
     `fetch_orders`,
     async () => {
-      return await fetchOrders(current);
+      return await fetchOrders("current");
     }
   );
 
