@@ -61,23 +61,23 @@ function AccountMenu({ current }) {
             {/* </a> */}
           </Link>
 
-          <Link
+          {/* <Link
             href="/account/favorite-list"
             className={itemCss + (current == "favorite-list" ? " active" : "")}
-          >
-            {/* <a
+          > */}
+          {/* <a
               className={
                 itemCss + (current == "favorite-list" ? " active" : "")
               }
             > */}
-            <FontAwesomeIcon
+          {/* <FontAwesomeIcon
               icon={["fas", "heart"]}
               className="me-2"
               fixedWidth
-            />
-            My favorites
-            {/* </a> */}
-          </Link>
+            /> */}
+          {/* My favorites */}
+          {/* </a> */}
+          {/* </Link> */}
         </div>
       </div>
     </div>
