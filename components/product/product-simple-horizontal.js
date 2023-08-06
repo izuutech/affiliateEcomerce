@@ -1,7 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-function ProductSimpleHorizontal({ id }) {
+function ProductSimpleHorizontal({ product, id }) {
+  const router = useRouter();
+  console.log(product);
   return (
     <div className="d-flex py-2">
       <div className="flex-shink-0" style={{ height: 80 }}>
@@ -19,14 +22,19 @@ function ProductSimpleHorizontal({ id }) {
       <div className="d-flex flex-column flex-grow-1 ms-3">
         <Link href="/product/1" className="text-dark text-decoration-none">
           {/* <a className="text-dark text-decoration-none"> */}
-          Product name here
+          {product?.title}
           {/* </a> */}
         </Link>
-        <h6 className="mb-0 fw-semibold">10000Ks</h6>
+        <h6 className="mb-0 fw-semibold">
+          &#8358;{product?.price?.toFixed(2)}
+        </h6>
         <div className="mt-auto">
-          <button className="btn btn-sm btn-secondary text-primary rounded-3">
+          <button
+            className="btn btn-sm btn-secondary text-primary rounded-3"
+            onClick={() => router.push(`/product/${product?._id}`)}
+          >
             <FontAwesomeIcon icon={("fas", "cart-plus")} />
-            &nbsp;Add to cart
+            &nbsp;Buy now
           </button>
         </div>
       </div>

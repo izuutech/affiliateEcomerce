@@ -16,7 +16,7 @@ function OrderHistory() {
   }, []);
 
   const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
-    `fetch_orders`,
+    `fetch_old_orders`,
     async () => {
       return await fetchOrders();
     }

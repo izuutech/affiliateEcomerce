@@ -25,7 +25,7 @@ function ProductGridCard({ product, id, title, off }) {
   }
   return (
     <div className="card h-100 border-0 shadow-sm">
-      <Link href="/product/1">
+      <Link href={`/product/${product._id}`}>
         <div className="ratio ratio-1x1">
           <img
             className="card-img-top "

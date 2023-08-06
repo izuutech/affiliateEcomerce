@@ -1,10 +1,26 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductRating from "../../components/product-rating";
 import ProductSimpleHorizontal from "../../components/product/product-simple-horizontal";
+import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import { fetchProducts, fetchSingleProduct } from "../../endpoints/products";
 
 function ProductDetail() {
   const images = [2, 4, 6, 8, 1];
+  const router = useRouter();
+  const { id } = router.query;
 
+  const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
+    `fetch_product_${id}`,
+    async () => {
+      return await fetchSingleProduct(id);
+    }
+  );
+
+  const { data: related } = useQuery(`fetch_products`, async () => {
+    return await fetchProducts({ page: 1, limit: 5 });
+  });
+  const product = data?.data?.data;
   return (
     <div className="vstack">
       <div className="bg-secondary">
@@ -19,7 +35,7 @@ function ProductDetail() {
                   <a href="#">Electronics</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
-                  Product name
+                  {product?.title}
                 </li>
               </ol>
             </nav>
@@ -74,7 +90,7 @@ function ProductDetail() {
             <div className="col-lg-7">
               <div className="d-flex">
                 <div className="d-inline h2 mb-0 fw-semibold me-3">
-                  Product name here
+                  {product?.title}
                 </div>
                 <div className="ms-auto">
                   <button
@@ -97,12 +113,10 @@ function ProductDetail() {
                     &nbsp;In Stock
                   </span>
                 </div>
-                <h4 className="fw-semibold">15000Ks</h4>
-                <p className="fw-light">
-                  Lorem ipsum is placeholder text commonly used in the graphic,
-                  print, and publishing industries for previewing layouts and
-                  visual mockups.
-                </p>
+                <h4 className="fw-semibold">
+                  &#8358;{product?.price?.toFixed(2)}
+                </h4>
+                <p className="fw-light">{product?.summary}</p>
                 <dl className="row mb-0">
                   <dt className="col-sm-3 fw-semibold">Code#</dt>
                   <dd className="col-sm-9">10001</dd>
@@ -112,107 +126,6 @@ function ProductDetail() {
                   <dd className="col-sm-9">Yangon, Mandalay</dd>
                 </dl>
                 <hr className="text-muted" />
-                <dl className="row gy-2 mb-4">
-                  <dt className="col-12 fw-semibold">Color</dt>
-                  <dd className="col-12">
-                    <div className="hstack gap-2">
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="color1"
-                          id="c1"
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="c1"
-                        >
-                          Red
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="color2"
-                          id="c2"
-                          checked
-                          onChange={() => {}}
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="c2"
-                        >
-                          Green
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="color3"
-                          id="c3"
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="c3"
-                        >
-                          Blue
-                        </label>
-                      </div>
-                    </div>
-                  </dd>
-
-                  <dt className="col-12 fw-semibold">Size</dt>
-                  <dd className="col-12">
-                    <div className="hstack gap-2">
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="size1"
-                          id="s1"
-                          checked
-                          onChange={() => {}}
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="s1"
-                        >
-                          Small
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="size2"
-                          id="s2"
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="s2"
-                        >
-                          Medium
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="size3"
-                          id="s3"
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="c3"
-                        >
-                          Large
-                        </label>
-                      </div>
-                    </div>
-                  </dd>
-                </dl>
 
                 <div className="d-flex">
                   <a
@@ -254,26 +167,7 @@ function ProductDetail() {
                 </ul>
               </div>
               <div className="card-body">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Duis ultricies lacus sed turpis tincidunt. Urna cursus eget
-                  nunc scelerisque. Sit amet massa vitae tortor condimentum.
-                  Amet est placerat in egestas erat. Vel quam elementum pulvinar
-                  etiam non quam lacus suspendisse faucibus. Duis at consectetur
-                  lorem donec massa sapien faucibus. Leo integer malesuada nunc
-                  vel risus commodo viverra maecenas. Pellentesque eu tincidunt
-                  tortor aliquam nulla facilisi. Gravida in fermentum et
-                  sollicitudin ac. Amet purus gravida quis blandit turpis cursus
-                  in hac habitasse. Augue mauris augue neque gravida in
-                  fermentum et sollicitudin. Faucibus in ornare quam viverra.
-                  Nisl rhoncus mattis rhoncus urna neque viverra justo. Cras
-                  semper auctor neque vitae. Nulla facilisi morbi tempus
-                  iaculis. Quam vulputate dignissim suspendisse in. Vestibulum
-                  rhoncus est pellentesque elit ullamcorper. Suspendisse
-                  ultrices gravida dictum fusce ut. Lacus vel facilisis volutpat
-                  est velit egestas.
-                </p>
+                <p>{product?.description}</p>
               </div>
               <div className="card-footer py-3">
                 <small>
@@ -292,11 +186,16 @@ function ProductDetail() {
                 <h5 className="my-auto fw-semibold">Related products</h5>
               </div>
               <div className="card-body">
-                <ProductSimpleHorizontal id={1} />
-                <ProductSimpleHorizontal id={2} />
-                <ProductSimpleHorizontal id={3} />
-                <ProductSimpleHorizontal id={4} />
-                <ProductSimpleHorizontal id={5} />
+                {related?.data?.data &&
+                  related?.data?.data?.docs &&
+                  Array.isArray(related?.data?.data?.docs) &&
+                  related?.data?.data?.docs?.map((product) => (
+                    <ProductSimpleHorizontal
+                      id={product._id}
+                      key={product._id}
+                      product={product}
+                    />
+                  ))}
               </div>
             </div>
           </div>
