@@ -1,11 +1,53 @@
 import Link from "next/link";
 import Layout from "../../components/layout";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { signup } from "../../endpoints/user";
 
-const cities = ["Yangon", "Mandalay", "Kalaw"];
-
-const states = ["Thar Kay Ta", "Daw Pon", "San Chaung"];
+const states = ["Imo", "Abia", "Enugu"];
 
 function SignUp() {
+  const [form, setForm] = useState({
+    email: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    state: states[0],
+    password: "",
+    confirmPassword: "",
+  });
+
+  const onChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setForm({
+      ...form,
+      [name]: value,
+    });
+    console.log(form);
+  };
+  const submit = async (e) => {
+    e.preventDefault();
+    console.log("mee");
+    if (
+      form.password &&
+      form.confirmPassword &&
+      form.confirmPassword === form.password
+    ) {
+      const [registered, registeredErr] = await signup(form);
+      if (registered) {
+        toast.success(registered.message);
+        setTimeout(() => {
+          window.location.href = "/auth/login";
+        }, 2000);
+      } else {
+        toast.error(registeredErr);
+      }
+    } else {
+      toast.error("Passwords do not match");
+    }
+  };
   return (
     <div className="container py-3">
       <div className="row my-4">
@@ -13,40 +55,56 @@ function SignUp() {
           <div className="card border-0 shadow-sm">
             <div className="card-body px-4">
               <h4 className="card-title fw-bold mt-2 mb-4">Sign Up</h4>
-              <form className="row g-3">
+              <form className="row g-3" method="post" onSubmit={submit}>
                 <div className="col-md-6">
                   <label className="form-label">First Name</label>
-                  <input type="text" className="form-control" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="firstName"
+                    onChange={onChange}
+                    value={form.firstName}
+                  />
                 </div>
                 <div className="col-md-6">
                   <label className="form-label">Last Name</label>
-                  <input type="text" className="form-control" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="lastName"
+                    onChange={onChange}
+                    value={form.lastName}
+                  />
                 </div>
                 <div className="col-md-12">
                   <label className="form-label">Email</label>
-                  <input type="email" className="form-control" />
+                  <input
+                    type="email"
+                    className="form-control"
+                    name="email"
+                    onChange={onChange}
+                    value={form.email}
+                  />
                 </div>
-                <div className="col-md-12">
-                  <div className="form-check form-check-inline">
-                    <input className="form-check-input" type="radio" />
-                    <label className="form-check-label">Male</label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <input className="form-check-input" type="radio" />
-                    <label className="form-check-label">Female</label>
-                  </div>
-                </div>
+
                 <div className="col-md-6">
-                  <label className="form-label">City</label>
-                  <select className="form-select">
-                    {cities.map((e, i) => {
-                      return <option key={i}>{e}</option>;
-                    })}
-                  </select>
+                  <label className="form-label">Phone Number</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="phoneNumber"
+                    onChange={onChange}
+                    value={form.phoneNumber}
+                  />
                 </div>
+
                 <div className="col-md-6">
-                  <label className="form-label">States</label>
-                  <select className="form-select">
+                  <label className="form-label">State</label>
+                  <select
+                    className="form-select"
+                    name="state"
+                    onChange={onChange}
+                  >
                     {states.map((e, i) => {
                       return <option key={i}>{e}</option>;
                     })}
@@ -54,11 +112,23 @@ function SignUp() {
                 </div>
                 <div className="col-md-6">
                   <label className="form-label">Password</label>
-                  <input type="password" className="form-control" />
+                  <input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    onChange={onChange}
+                    value={form.password}
+                  />
                 </div>
                 <div className="col-md-6">
                   <label className="form-label">Confirm Password</label>
-                  <input type="password" className="form-control" />
+                  <input
+                    type="password"
+                    className="form-control"
+                    name="confirmPassword"
+                    onChange={onChange}
+                    value={form.confirmPassword}
+                  />
                 </div>
                 <div className="col-md-12 mt-4">
                   <button className="btn btn-primary w-100">Register</button>
