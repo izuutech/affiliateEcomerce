@@ -29,7 +29,6 @@ function ExploreProducts() {
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
   }, []);
-  console.log(data?.data?.data?.totalDocs);
 
   const changePage = (newPage) => {
     setPagination((prev) => ({ ...prev, page: newPage }));

@@ -1,15 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import ProductRating from "../../components/product-rating";
 import ProductSimpleHorizontal from "../../components/product/product-simple-horizontal";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { useQuery } from "react-query";
 import { fetchProducts, fetchSingleProduct } from "../../endpoints/products";
+import { frontendbaseUrl } from "../../utils/constants.utils";
+import { toast } from "react-toastify";
 
 function ProductDetail() {
   const images = [2, 4, 6, 8, 1];
   const router = useRouter();
-  const { id } = router.query;
-
+  const { id, ref } = router.query;
   const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
     `fetch_product_${id}`,
     async () => {
@@ -122,22 +125,29 @@ function ProductDetail() {
                   <dd className="col-sm-9">10001</dd>
                   <dt className="col-sm-3 fw-semibold">Category</dt>
                   <dd className="col-sm-9">Electronics</dd>
-                  <dt className="col-sm-3 fw-semibold">Delivery</dt>
+                  <dt className="col-sm-3 fw-semibold">Location</dt>
                   <dd className="col-sm-9">Yangon, Mandalay</dd>
                 </dl>
                 <hr className="text-muted" />
 
                 <div className="d-flex">
-                  <a
-                    href="#"
+                  <Link
+                    href={`/shopping-cart?product=${id}&ref=${ref}`}
                     className="btn btn-primary px-md-4 col col-md-auto me-2"
                   >
                     Buy now
-                  </a>
-                  <button className="btn btn-outline-primary col col-md-auto">
-                    <FontAwesomeIcon icon={["fas", "cart-plus"]} />
-                    &nbsp;Add to cart
-                  </button>
+                  </Link>
+                  <CopyToClipboard
+                    text={`${frontendbaseUrl}`}
+                    onCopy={() => {
+                      toast.success("Link copied");
+                    }}
+                  >
+                    <button className="btn btn-outline-primary col col-md-auto">
+                      <FontAwesomeIcon icon={["fas", "share"]} />
+                      &nbsp;Copy Affiliate Link
+                    </button>
+                  </CopyToClipboard>
                 </div>
               </div>
             </div>

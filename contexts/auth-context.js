@@ -12,7 +12,6 @@ const AuthProvider = ({ children }) => {
 
   const setUserAuthInfo = ({ data }) => {
     window.localStorage.setItem("token", data.userToken);
-    console.log(JSON.stringify(data), "data");
     window.localStorage.setItem("loggedInUser", JSON.stringify(data));
     const newToken = localStorage.getItem("token");
     const newUser = localStorage.getItem("loggedInUser");

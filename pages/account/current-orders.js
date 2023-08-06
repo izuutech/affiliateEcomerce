@@ -22,7 +22,6 @@ function CurrentOrders() {
     }
   );
 
-  console.log(data?.data?.data);
   return (
     <div>
       <div className="bg-secondary">

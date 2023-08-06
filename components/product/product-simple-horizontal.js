@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 
 function ProductSimpleHorizontal({ product, id }) {
   const router = useRouter();
-  console.log(product);
   return (
     <div className="d-flex py-2">
       <div className="flex-shink-0" style={{ height: 80 }}>

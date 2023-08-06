@@ -4,14 +4,26 @@ import PricingCard from "../../components/shopping-cart/pricing-card";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/auth-context";
+import { fetchSingleProduct } from "../../endpoints/products";
+import { useQuery } from "react-query";
 
 function ShoppingCart() {
   const router = useRouter();
+  const { ref, product } = router.query;
+
   const { isUserAuthenticated, authState } = useContext(AuthContext);
 
   useEffect(() => {
     isUserAuthenticated() ? null : router.push("/auth/login");
   }, []);
+
+  const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
+    `fetch_product_${product}`,
+    async () => {
+      return await fetchSingleProduct(product);
+    }
+  );
+
   return (
     <div className="container py-4">
       <div className="row g-3">
@@ -37,9 +49,9 @@ function ShoppingCart() {
                     </tr>
                   </thead> */}
                   <tbody>
-                    <CartItemRow />
-                    <CartItemRow />
-                    <CartItemRow />
+                    <CartItemRow product={data?.data?.data} />
+                    {/* <CartItemRow />
+                    <CartItemRow /> */}
                   </tbody>
                 </table>
               </div>

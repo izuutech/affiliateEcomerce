@@ -40,7 +40,10 @@ function ProductGridCard({ product, id, title, off }) {
       </Link>
       <div className="card-body">
         <div className="vstack gap-2">
-          <Link href="/product/1" className="text-dark text-decoration-none">
+          <Link
+            href={`/product/${product?._id}`}
+            className="text-dark text-decoration-none"
+          >
             {/* <a className="text-dark text-decoration-none"> */}
             {product.title}
             {/* </a> */}
@@ -49,18 +52,24 @@ function ProductGridCard({ product, id, title, off }) {
           <h6 className="fw-semibold"> &#8358;{product.price.toFixed(2)}</h6>
 
           <div className="hstack gap-2">
-            <button className="btn btn-secondary text-primary flex-grow-1 d-md-block d-lg-none">
+            <Link
+              href={`/product/${product?._id}`}
+              className="btn btn-secondary text-primary flex-grow-1 d-md-block d-lg-none"
+            >
               <FontAwesomeIcon icon={["fas", "cart-plus"]} />
-              &nbsp;Add to cart
-            </button>
+              &nbsp;Buy Now
+            </Link>
             <button className="btn btn-outline-secondary text-primary border d-md-block d-lg-none">
               <FontAwesomeIcon icon={["far", "heart"]} />
             </button>
 
-            <button className="btn btn-sm btn-secondary text-primary flex-grow-1 d-none d-lg-block">
+            <Link
+              href={`/product/${product?._id}`}
+              className="btn btn-sm btn-secondary text-primary flex-grow-1 d-none d-lg-block"
+            >
               <FontAwesomeIcon icon={["fas", "cart-plus"]} />
-              &nbsp;Add to cart
-            </button>
+              &nbsp;Buy Now
+            </Link>
             <button className="btn btn-sm btn-outline-secondary text-primary border d-none d-lg-block">
               <FontAwesomeIcon icon={["far", "heart"]} />
             </button>
