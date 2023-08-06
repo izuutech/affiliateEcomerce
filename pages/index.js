@@ -1,168 +1,116 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Carousel } from "react-responsive-carousel";
-import ProductSimpleCard from "../components/product/product-simple-card";
+import ProductGridCard from "../components/product/product-grid-card";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import { fetchProducts } from "../endpoints/products";
+import { useQuery } from "react-query";
 
-export default function Home() {
-  const list = [1, 2, 3, 4, 5, 6, 7, 8];
-  const router = useRouter();
+function Home() {
+  const [products, setProducts] = useState([]);
+  const [pagination, setPagination] = useState({ page: 1, limit: 6 });
+
+  const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
+    `fetch_orders_${pagination.page}`,
+    async () => {
+      return await fetchProducts(pagination);
+    }
+  );
+
   useEffect(() => {
-    router.push("/explore");
-  }, []);
-  return <div></div>;
-  // return (
-  //   <div>
-  //     <div className="container py-3">
-  //       <div className="row mb-4">
-  //         <div className="col-12">
-  //           <Carousel
-  //             autoPlay={true}
-  //             infiniteLoop={true}
-  //             showArrows={false}
-  //             showStatus={false}
-  //             showThumbs={false}
-  //             transitionTime={500}
-  //             renderIndicator={(onClickHandler, isSelected, index, label) => {
-  //               if (isSelected) {
-  //                 return (
-  //                   <li className="d-inline-block m-2 text-light">
-  //                     <FontAwesomeIcon icon={["fas", "circle"]} size="xs" />
-  //                   </li>
-  //                 );
-  //               }
-  //               return (
-  //                 <li
-  //                   className="d-inline-block m-2 text-light text-opacity-50"
-  //                   onClick={onClickHandler}
-  //                   key={index}
-  //                   role="button"
-  //                   tabIndex={0}
-  //                 >
-  //                   <FontAwesomeIcon icon={["fas", "circle"]} size="xs" />
-  //                 </li>
-  //               );
-  //             }}
-  //           >
-  //             <div className="ratio ratio-21x9">
-  //               <img
-  //                 src="/images/online-shopping.jpg"
-  //                 alt="Cover image"
-  //                 className="rounded"
-  //               />
-  //             </div>
-  //             <div className="ratio ratio-21x9">
-  //               <img
-  //                 src="/images/online-shopping.jpg"
-  //                 alt="Cover image"
-  //                 className="rounded"
-  //               />
-  //             </div>
-  //             <div className="ratio ratio-21x9">
-  //               <img
-  //                 src="/images/online-shopping.jpg"
-  //                 alt="Cover image"
-  //                 className="rounded"
-  //               />
-  //             </div>
-  //           </Carousel>
-  //         </div>
-  //       </div>
-  //       <div className="row row-cols-1 row-cols-md-3 g-3 mb-4">
-  //         <div className="col">
-  //           <div className="card h-100 border-0 shadow-sm">
-  //             <figure className="figure card-body mb-0">
-  //               <div
-  //                 className="bg-secondary rounded-circle d-flex mb-2"
-  //                 style={{ width: 50, height: 50 }}
-  //               >
-  //                 <FontAwesomeIcon
-  //                   icon={["fas", "money-bill-alt"]}
-  //                   size="lg"
-  //                   className="text-primary m-auto"
-  //                 />
-  //               </div>
-  //               <h5 className="mb-1 fw-bold">Reasonable Price</h5>
-  //               <figcaption className="figure-caption text-dark">
-  //                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-  //                 do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  //               </figcaption>
-  //             </figure>
-  //           </div>
-  //         </div>
-  //         <div className="col">
-  //           <div className="card h-100 border-0 shadow-sm">
-  //             <figure className="figure card-body mb-0">
-  //               <div
-  //                 className="bg-secondary rounded-circle d-flex mb-2"
-  //                 style={{ width: 50, height: 50 }}
-  //               >
-  //                 <FontAwesomeIcon
-  //                   icon={["fas", "headset"]}
-  //                   size="lg"
-  //                   className="text-primary m-auto"
-  //                 />
-  //               </div>
-  //               <h5 className="mb-1 fw-bold">Customer Support 24/7</h5>
-  //               <figcaption className="figure-caption text-dark">
-  //                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-  //                 do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  //               </figcaption>
-  //             </figure>
-  //           </div>
-  //         </div>
-  //         <div className="col">
-  //           <div className="card h-100 border-0 shadow-sm">
-  //             <figure className="figure card-body mb-0">
-  //               <div
-  //                 className="bg-secondary rounded-circle d-flex mb-2"
-  //                 style={{ width: 50, height: 50 }}
-  //               >
-  //                 <FontAwesomeIcon
-  //                   icon={["fas", "truck"]}
-  //                   size="lg"
-  //                   className="text-primary m-auto"
-  //                 />
-  //               </div>
-  //               <h5 className="mb-1 fw-bold">Fast Delivery</h5>
-  //               <figcaption className="figure-caption text-dark">
-  //                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-  //                 do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  //               </figcaption>
-  //             </figure>
-  //           </div>
-  //         </div>
-  //       </div>
-  //       <h4 className="mb-3 fw-semibold">New products</h4>
-  //       <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 mb-5">
-  //         {list.map((e, i) => {
-  //           return (
-  //             <div className="col" key={i}>
-  //               <ProductSimpleCard id={i} title={`Product ${i}`} />
-  //             </div>
-  //           );
-  //         })}
-  //       </div>
-  //     </div>
-  //     {/* <div className="d-flex flex-column align-items-center bg-primary py-5">
-  //       <span className="mb-4 text-light text-opacity-75">
-  //         Subscribe for promotions and wonderful events
-  //       </span>
-  //       <form className="d-flex">
-  //         <div className="me-2">
-  //           <input
-  //             type="email"
-  //             className="form-control"
-  //             placeholder="Your email"
-  //             size="24"
-  //           />
-  //         </div>
-  //         <button className="btn btn-warning">
-  //           <FontAwesomeIcon icon={["fas", "envelope"]} className="me-2" />
-  //           Subscribe
-  //         </button>
-  //       </form>
-  //     </div> */}
-  //   </div>
-  // );
+    if (data?.data?.data && Array.isArray(data?.data?.data?.docs)) {
+      setProducts([...data?.data?.data?.docs]);
+    }
+  }, [data?.data, data?.data?.data]);
+
+  const changePage = (newPage) => {
+    setPagination((prev) => ({ ...prev, page: newPage }));
+  };
+
+  return (
+    <div className="vstack">
+      <div className="bg-secondary">
+        <div className="container">
+          <div className="row py-4 px-2">
+            <nav aria-label="breadcrumb col-12">
+              <ol className="breadcrumb mb-1">
+                <li className="breadcrumb-item">
+                  <a href="#">All Categories</a>
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div className="container py-4">
+        <div className="row g-3">
+          <div className="col-lg-12">
+            <div className="hstack justify-content-between mb-3">
+              <span className="text-dark">
+                {data?.data?.data?.totalDocs} Items found
+              </span>
+              <div className="btn-group" role="group">
+                <button className="btn btn-outline-dark">
+                  <FontAwesomeIcon icon={["fas", "sort-amount-up"]} />
+                </button>
+                <button className="btn btn-outline-dark">
+                  <FontAwesomeIcon icon={["fas", "th-list"]} />
+                </button>
+              </div>
+            </div>
+            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+              {products.map((product) => (
+                <div className="col" key={product?._id}>
+                  <ProductGridCard product={product} />
+                </div>
+              ))}
+            </div>
+
+            <nav className="float-end mt-3">
+              <ul className="pagination">
+                {/* {data?.data?.data?.hasPrevPage && ( */}
+                <li className="page-item">
+                  <button
+                    className={`page-link ${
+                      data?.data?.data?.hasPrevPage ? "" : "text-dark"
+                    }`}
+                    onClick={
+                      data?.data?.data?.hasPrevPage
+                        ? () => {
+                            const newPage = (pagination.page -= 1);
+                            changePage(newPage);
+                          }
+                        : null
+                    }
+                  >
+                    Prev
+                  </button>
+                </li>
+                {/* )} */}
+
+                <li className="page-item">
+                  <button
+                    className={`page-link ${
+                      data?.data?.data?.hasNextPage ? "" : "text-dark"
+                    }`}
+                    onClick={
+                      data?.data?.data?.hasNextPage
+                        ? () => {
+                            const newPage = (pagination.page += 1);
+                            changePage(newPage);
+                          }
+                        : null
+                    }
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
+
+export default Home;
