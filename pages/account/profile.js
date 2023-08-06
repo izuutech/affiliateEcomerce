@@ -36,7 +36,29 @@ function Profile() {
           <div className="col-lg-3">
             <AccountMenu current="profile" />
           </div>
+
           <div className="col-lg-9">
+            <div className="col-lg-9 card border-0 shadow-sm">
+              <div className="p-3 d-flex border-bottom">
+                <h5 className="my-auto fw-semibold">Wallet Balance</h5>
+              </div>
+              <div className="card-body">
+                <div className="row row-cols-1 row-cols-lg-2 g-3">
+                  <div className="col">
+                    <h5 className="my-auto fw-semibold">
+                      &#8358; {authState.user.balance.toFixed(2)}
+                    </h5>
+                  </div>
+                </div>
+                <div className="col-md-12 mt-4">
+                  <button className="btn btn-primary">Fund With Card</button>
+                </div>
+                <div className="col-md-12 mt-4">
+                  <button className="btn btn-primary">Withdraw All</button>
+                </div>
+              </div>
+            </div>
+            <br />
             <div className="row g-3">
               <div className="col-lg-9">
                 <div className="card border-0 shadow-sm mb-3">
@@ -115,9 +137,6 @@ function Profile() {
                       <div className="col">
                         <AddressView address={authState.user.address} />
                       </div>
-                      {/* <div className="col">
-                        <AddressView />
-                      </div> */}
                     </div>
                   </div>
                 </div>
