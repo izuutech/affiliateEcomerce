@@ -2,13 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CartItemRow from "../../components/shopping-cart/cart-item-row";
 import PricingCard from "../../components/shopping-cart/pricing-card";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 import { fetchSingleProduct } from "../../endpoints/products";
 import { useQuery } from "react-query";
 
 function ShoppingCart() {
   const router = useRouter();
+  const [quantity, setQuantity] = useState(1);
   const { ref, product } = router.query;
 
   const { isUserAuthenticated, authState } = useContext(AuthContext);
@@ -49,7 +50,11 @@ function ShoppingCart() {
                     </tr>
                   </thead> */}
                   <tbody>
-                    <CartItemRow product={data?.data?.data} />
+                    <CartItemRow
+                      product={data?.data?.data}
+                      quantity={quantity}
+                      setQuantity={setQuantity}
+                    />
                     {/* <CartItemRow />
                     <CartItemRow /> */}
                   </tbody>
@@ -68,7 +73,7 @@ function ShoppingCart() {
           </div>
         </div>
         <div className="col-lg-4">
-          <div className="card mb-3 border-0 shadow-sm">
+          {/* <div className="card mb-3 border-0 shadow-sm">
             <div className="card-body">
               <div className="input-group">
                 <input
@@ -81,8 +86,12 @@ function ShoppingCart() {
                 </button>
               </div>
             </div>
-          </div>
-          <PricingCard />
+          </div> */}
+          <PricingCard
+            product={data?.data?.data}
+            affiliate={ref}
+            quantity={quantity}
+          />
         </div>
       </div>
       <br />

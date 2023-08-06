@@ -1,10 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
-function CartItemRow({ product }) {
-  const [quantity, setQuantity] = useState(1);
+function CartItemRow({ product, quantity, setQuantity }) {
   const getQtyInput = () => {
     return (
       <div className="input-group input-group-sm" style={{ width: 100 }}>
