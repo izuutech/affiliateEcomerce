@@ -1,7 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductGridCard from "../../components/product/product-grid-card";
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../contexts/auth-context";
 
 function ExploreProducts() {
+  const router = useRouter();
+  const { isUserAuthenticated, authState } = useContext(AuthContext);
+
+  useEffect(() => {
+    isUserAuthenticated() ? null : router.push("/auth/login");
+  }, []);
   return (
     <div className="vstack">
       <div className="bg-secondary">
@@ -12,12 +21,12 @@ function ExploreProducts() {
                 <li className="breadcrumb-item">
                   <a href="#">All Categories</a>
                 </li>
-                <li className="breadcrumb-item">
+                {/* <li className="breadcrumb-item">
                   <a href="#">Electronics</a>
-                </li>
+                </li> 
                 <li className="breadcrumb-item active" aria-current="page">
                   Phones & Tablets
-                </li>
+                </li> */}
               </ol>
             </nav>
           </div>
@@ -25,7 +34,7 @@ function ExploreProducts() {
       </div>
       <div className="container py-4">
         <div className="row g-3">
-          <div className="col-lg-3">
+          {/* <div className="col-lg-3">
             <div className="accordion shadow-sm rounded">
               <div className="accordion-item border-bottom">
                 <h2 className="accordion-header">
@@ -160,8 +169,8 @@ function ExploreProducts() {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="col-lg-9">
+          </div> */}
+          <div className="col-lg-12">
             <div className="hstack justify-content-between mb-3">
               <span className="text-dark">33 Items found</span>
               <div className="btn-group" role="group">

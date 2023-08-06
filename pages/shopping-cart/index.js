@@ -1,8 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CartItemRow from "../../components/shopping-cart/cart-item-row";
 import PricingCard from "../../components/shopping-cart/pricing-card";
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../contexts/auth-context";
 
 function ShoppingCart() {
+  const router = useRouter();
+  const { isUserAuthenticated, authState } = useContext(AuthContext);
+
+  useEffect(() => {
+    isUserAuthenticated() ? null : router.push("/auth/login");
+  }, []);
   return (
     <div className="container py-4">
       <div className="row g-3">
