@@ -9,9 +9,9 @@ function CartItemRow({ product, quantity, setQuantity }) {
         <button
           className="btn btn-outline-primary"
           type="button"
-          onClick={
-            quantity > 1 ? () => setQuantity((prev) => (prev -= 1)) : null
-          }
+          // onClick={
+          //   quantity > 1 ? () => setQuantity((prev) => (prev -= 1)) : null
+          // }
         >
           <FontAwesomeIcon icon={["fas", "minus"]} />
         </button>
@@ -26,7 +26,7 @@ function CartItemRow({ product, quantity, setQuantity }) {
         <button
           className="btn btn-outline-primary"
           type="button"
-          onClick={() => setQuantity((prev) => (prev += 1))}
+          // onClick={() => setQuantity((prev) => (prev += 1))}
         >
           <FontAwesomeIcon icon={["fas", "plus"]} />
         </button>

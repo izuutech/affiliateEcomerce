@@ -7,9 +7,6 @@ import { fetchProducts } from "../../endpoints/products";
 import { useQuery } from "react-query";
 
 function ExploreProducts() {
-  const router = useRouter();
-  const { isUserAuthenticated, authState } = useContext(AuthContext);
-
   const [products, setProducts] = useState([]);
   const [pagination, setPagination] = useState({ page: 1, limit: 6 });
 
@@ -25,10 +22,6 @@ function ExploreProducts() {
       setProducts([...data?.data?.data?.docs]);
     }
   }, [data?.data, data?.data?.data]);
-
-  useEffect(() => {
-    isUserAuthenticated() ? null : router.push("/auth/login");
-  }, []);
 
   const changePage = (newPage) => {
     setPagination((prev) => ({ ...prev, page: newPage }));

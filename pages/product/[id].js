@@ -8,12 +8,18 @@ import { useQuery } from "react-query";
 import { fetchProducts, fetchSingleProduct } from "../../endpoints/products";
 import { frontendbaseUrl } from "../../utils/constants.utils";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../contexts/auth-context";
 
 function ProductDetail() {
   const images = [2, 4, 6, 8, 1];
   const router = useRouter();
   const { id, ref } = router.query;
+  const { isUserAuthenticated, user } = useContext(AuthContext);
+
+  useEffect(() => {
+    isUserAuthenticated() ? null : router.push("/auth/login");
+  }, []);
   const { isLoading, data, refetch, isRefetching, isFetching } = useQuery(
     `fetch_product_${id}`,
     async () => {
@@ -143,7 +149,7 @@ function ProductDetail() {
                     Buy now
                   </Link>
                   <CopyToClipboard
-                    text={`${frontendbaseUrl}`}
+                    text={`${frontendbaseUrl}product/${id}?ref=${user?._id}`}
                     onCopy={() => {
                       toast.success("Link copied");
                     }}
