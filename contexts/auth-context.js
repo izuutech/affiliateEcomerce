@@ -39,6 +39,23 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // checks if the user is an admin
+
+  const isUserAnAdmin = () => {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    setAuthState({
+      ...authState,
+      token,
+      user,
+    });
+    if (token && user.type === "admin") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const updateUser = async (userData) => {
     if (userData) {
       setAuthState({ ...authState, user: userData });
@@ -58,6 +75,7 @@ const AuthProvider = ({ children }) => {
         user: authState.user,
         setAuthState: (userAuthInfo) => setUserAuthInfo(userAuthInfo),
         isUserAuthenticated,
+        isUserAnAdmin,
         updateUser,
       }}
     >
