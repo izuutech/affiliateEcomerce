@@ -11,7 +11,7 @@ function Footer() {
               <h5 className="text-light">Contact us</h5>
               <div className="vstack gap-1">
                 <p className="mb-2 text-light text-opacity-75 small">
-                  This site was built by Joshua Amaechindukwe in partial
+                  This site was built by Joshua and Emmanuel in partial
                   fulfillment for his B.Tech degree in FUTO
                 </p>
                 <small className="d-flex text-light text-opacity-75 gap-2">
@@ -26,7 +26,7 @@ function Footer() {
                     icon={["fas", "envelope"]}
                     className="mt-1"
                   />
-                  <div>contact@joshuaizu.com</div>
+                  <div>emma@joshuaizu.com</div>
                 </small>
                 <small className="d-flex text-light text-opacity-75 gap-2">
                   <FontAwesomeIcon icon={["fas", "phone"]} className="mt-1" />
