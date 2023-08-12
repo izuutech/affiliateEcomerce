@@ -1,6 +1,6 @@
 # E-commerce Template
 
-E-commerce consumer front-end template. [Live Preview](https://affiliate-ecomerce-gecbmvrzg-izuutech.vercel.app/)
+E-commerce consumer front-end template. [Live Preview](https://affiliate-ecomerce.vercel.app/)
 
 - NextJS
 - Bootstrap 5
