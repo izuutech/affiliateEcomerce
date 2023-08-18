@@ -29,9 +29,10 @@ function ProductGridCard({ product, id, title, off }) {
         <div className="ratio ratio-1x1">
           <img
             className="card-img-top "
-            src={`https://source.unsplash.com/random/200x240?random=${Math.floor(
-              Math.random() * 100
-            )}`}
+            src={product?.image}
+            // src={`https://source.unsplash.com/random/200x240?random=${Math.floor(
+            //   Math.random() * 100
+            // )}`}
             alt="Product image."
             style={{ objectFit: "cover" }}
           />
