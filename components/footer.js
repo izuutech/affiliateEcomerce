@@ -12,7 +12,7 @@ function Footer() {
               <div className="vstack gap-1">
                 <p className="mb-2 text-light text-opacity-75 small">
                   This site was built by Joshua and Emmanuel in partial
-                  fulfillment for his B.Tech degree in FUTO
+                  fulfillment for their B.Tech degree in FUTO
                 </p>
                 <small className="d-flex text-light text-opacity-75 gap-2">
                   <FontAwesomeIcon

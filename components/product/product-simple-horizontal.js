@@ -9,9 +9,10 @@ function ProductSimpleHorizontal({ product, id }) {
       <div className="flex-shink-0" style={{ height: 80 }}>
         <img
           className="rounded"
-          src={`https://source.unsplash.com/random/100x100?random=${Math.floor(
-            Math.random() * 50
-          )}`}
+          src={product?.image}
+          // src={`https://source.unsplash.com/random/100x100?random=${Math.floor(
+          //   Math.random() * 50
+          // )}`}
           width={80}
           height={80}
           alt="Product image."
