@@ -15,7 +15,7 @@ function UploadProduct() {
     referrerPercent: 0,
     summary: "",
     description: "",
-    image: "https://sjs",
+    image: null,
   });
   useEffect(() => {
     isUserAnAdmin() ? null : router.push("/auth/login");
@@ -25,6 +25,14 @@ function UploadProduct() {
   const onChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+  const selectFile = (e) => {
+    const name = e.target.name;
+    const value = e.target.files[0];
     setForm({
       ...form,
       [name]: value,
@@ -40,7 +48,14 @@ function UploadProduct() {
       form.summary &&
       form.description
     ) {
-      const [created, createdErr] = await createProduct(form);
+      const theForm = new FormData();
+      theForm.append("title", form.title);
+      theForm.append("price", form.price);
+      theForm.append("referrerPercent", form.referrerPercent);
+      theForm.append("summary", form.summary);
+      theForm.append("description", form.description);
+      theForm.append("image", form.image);
+      const [created, createdErr] = await createProduct(theForm);
       if (created) {
         toast.success(created.message);
       } else {
@@ -87,6 +102,15 @@ function UploadProduct() {
                     name="referrerPercent"
                     value={form.referrerPercent}
                     onChange={onChange}
+                  />
+                </div>
+                <div className="col-md-12">
+                  <label className="form-label">Product Image</label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    name="image"
+                    onChange={selectFile}
                   />
                 </div>
                 <div className="col-md-12">

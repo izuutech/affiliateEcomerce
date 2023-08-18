@@ -8,7 +8,7 @@ export const createProduct = async (body) => {
   const [res, resErr] = await handlePromise(
     axios.post(`${baseUrl}product`, body, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     })
