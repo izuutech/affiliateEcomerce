@@ -137,7 +137,7 @@ function ProductDetail() {
                 <dl className="row mb-0">
                   <dt className="col-sm-3 fw-semibold">Percent</dt>
                   <dd className="col-sm-9">
-                    {product?.referrerPercent} {"(%)"}
+                    {product?.referrerPercent} {"%"}
                   </dd>
                   <dt className="col-sm-3 fw-semibold">Category</dt>
                   <dd className="col-sm-9">Electronics</dd>
