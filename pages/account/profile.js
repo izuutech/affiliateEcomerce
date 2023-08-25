@@ -22,7 +22,7 @@ function Profile() {
       "Are you sure you want to fund your wallet with your mastercard?"
     );
     if (yes) {
-      const [fund, fundErr] = await fundUser({ amount: 500 });
+      const [fund, fundErr] = await fundUser({ amount: 1000 });
       if (fund) {
         window.localStorage.setItem("loggedInUser", JSON.stringify(fund.data));
         updateUser(fund.data);
@@ -88,7 +88,7 @@ function Profile() {
                 </div>
                 <div className="col-md-12 mt-4">
                   <button className="btn btn-primary" onClick={fund_account}>
-                    Fund &#8358;500 With Card
+                    Fund &#8358;1000 With Card
                   </button>
                 </div>
                 <div className="col-md-12 mt-4">
