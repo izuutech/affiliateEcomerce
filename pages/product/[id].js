@@ -135,10 +135,10 @@ function ProductDetail() {
                 </h4>
                 <p className="fw-light">{product?.summary}</p>
                 <dl className="row mb-0">
-                  <dt className="col-sm-3 fw-semibold">
-                    Affiliate Percent{"(%)"}
-                  </dt>
-                  <dd className="col-sm-9">{product?.referrerPercent}</dd>
+                  <dt className="col-sm-3 fw-semibold">Percent</dt>
+                  <dd className="col-sm-9">
+                    {product?.referrerPercent} {"(%)"}
+                  </dd>
                   <dt className="col-sm-3 fw-semibold">Category</dt>
                   <dd className="col-sm-9">Electronics</dd>
                   <dt className="col-sm-3 fw-semibold">Location</dt>
